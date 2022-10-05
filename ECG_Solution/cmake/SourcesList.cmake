@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 set(Header_Files
     "src/INIReader.h"
     "src/Utils.h"
+    "src/OpenGLDebug.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
