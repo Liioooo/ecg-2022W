@@ -201,3 +201,4 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 # Assets handling
 ################################################################################
 file(COPY "../assets" DESTINATION .) # Copy assets to current binary directory via "."
+add_custom_command(TARGET ECG_Solution POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/../assets $<TARGET_FILE_DIR:ECG_Solution>/assets)
