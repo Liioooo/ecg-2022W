@@ -7,14 +7,16 @@
 
 #include "Utils.h"
 #include "OpenGLDebug.h"
+#include "Shader.h"
+#include "Teapot.h"
+#include "CamaraSystem.h"
+#include "InputManager.h"
 #include <sstream>
 
 
 /* --------------------------------------------- */
 // Prototypes
 /* --------------------------------------------- */
-
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
 /* --------------------------------------------- */
 // Global variables
@@ -36,6 +38,7 @@ int main(int argc, char **argv) {
     // load values from ini file
     int width = reader.GetInteger("window", "width", 800);
     int height = reader.GetInteger("window", "height", 800);
+    int refreshRate = reader.GetInteger("window", "refresh_rate", 60);
     std::string window_title = reader.Get("window", "title", "ECG 2022");
 
     /* --------------------------------------------- */
@@ -63,7 +66,6 @@ int main(int argc, char **argv) {
         EXIT_WITH_ERROR("Failed to create window");
     }
 
-    glfwSetKeyCallback(window, key_callback);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
@@ -81,7 +83,30 @@ int main(int argc, char **argv) {
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #endif
 
-    glClearColor(1, 1, 1, 0);
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(1, 1, 1, 1);
+
+    InputManager* inputManager = new InputManager(window);
+    inputManager->addKeyListener(GLFW_KEY_ESCAPE, [](GLFWwindow * window) {
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    });
+
+    Shader *shader = new Shader("assets/shader/shader.vert", "assets/shader/shader.frag");
+    shader->use();
+
+    CamaraSystem* camaraSystem = new CamaraSystem(shader, inputManager, reader);
+
+    Teapot* teapot1 = new Teapot(shader, glm::vec3(0.2f, 0.6f, 0.4f));
+    teapot1->addRotation(180, 0, 1, 0);
+    teapot1->setPosition(-1.5f, 1, 0);
+    teapot1->updateModelMatrix();
+    camaraSystem->addDrawable(teapot1);
+
+    Teapot* teapot2 = new Teapot(shader, glm::vec3(0.7f, 0.1f, 0.2f));
+    teapot2->setPosition(1.5f, -1, 0);
+    teapot2->setScale(1, 2, 1);
+    teapot2->updateModelMatrix();
+    camaraSystem->addDrawable(teapot2);
 
     if (!initFramework()) {
         EXIT_WITH_ERROR("Failed to init framework");
@@ -94,8 +119,10 @@ int main(int argc, char **argv) {
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glfwPollEvents();
+            inputManager->updateMousePos();
 
-            drawTeapot();
+            camaraSystem->updateCamara();
+            camaraSystem->drawObjects();
 
             glfwSwapBuffers(window);
 
@@ -119,9 +146,4 @@ int main(int argc, char **argv) {
     glfwDestroyWindow(window);
     glfwTerminate();
     return EXIT_SUCCESS;
-}
-
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
