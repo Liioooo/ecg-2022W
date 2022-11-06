@@ -23,17 +23,16 @@ public:
     void addRotation(float angle, float x, float y, float z);
     void clearRotations();
     void updateModelMatrix();
-
-    virtual void draw() = 0;
+    virtual void draw();
 
 protected:
     Shader* shader;
-
-    void applyModelMatrix();
 
 private:
     glm::vec3 position = glm::vec3(0, 0, 0);
     glm::vec3 scale = glm::vec3(1, 1, 1);
     std::vector<Rotation*> rotations;
     glm::mat4 modelMatrix = glm::mat4(1.0f);
+
+    void applyModelMatrix();
 };

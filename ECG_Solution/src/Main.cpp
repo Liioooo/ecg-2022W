@@ -11,6 +11,7 @@
 #include "Teapot.h"
 #include "CamaraSystem.h"
 #include "InputManager.h"
+#include "Box.h"
 #include <sstream>
 
 
@@ -108,6 +109,14 @@ int main(int argc, char **argv) {
     teapot2->setScale(1, 2, 1);
     teapot2->updateModelMatrix();
     camaraSystem->addDrawable(teapot2);
+
+    Box* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 1);
+    box->init();
+    box->updateModelMatrix();
+    camaraSystem->addDrawable(box);
+
+//    glEnable(GL_CULL_FACE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     if (!initFramework()) {
         EXIT_WITH_ERROR("Failed to init framework");

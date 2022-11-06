@@ -27,11 +27,16 @@ void Drawable::clearRotations() {
 
 void Drawable::updateModelMatrix() {
     modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(this->modelMatrix, this->position);
-    for (const auto &rot: this->rotations) {
-        this->modelMatrix = glm::rotate(this->modelMatrix, rot->angle, rot->axis);
+    modelMatrix = glm::translate(modelMatrix, position);
+    for (const auto &rot: rotations) {
+        modelMatrix = glm::rotate(modelMatrix, rot->angle, rot->axis);
     }
-    modelMatrix = glm::scale(this->modelMatrix, this->scale);
+    modelMatrix = glm::scale(modelMatrix, scale);
+}
+
+void Drawable::draw() {
+    shader->use();
+    applyModelMatrix();
 }
 
 void Drawable::applyModelMatrix() {

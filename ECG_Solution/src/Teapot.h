@@ -10,7 +10,7 @@ public:
     Teapot(Shader* shader, glm::vec3 color) : Drawable(shader), color(color) {}
 
     void draw() override {
-        applyModelMatrix();
+        Drawable::draw();
         shader->setVec3("color", color);
         drawTeapot();
     }
