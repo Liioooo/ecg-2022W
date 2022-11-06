@@ -1,6 +1,7 @@
 //
 // Created by preis on 06/11/2022.
 //
+#pragma once
 
 #include "Drawable.h"
 #include "GL/glew.h"

@@ -1,6 +1,7 @@
 //
 // Created by preis on 08/10/2022.
 //
+#pragma once
 
 #include "Drawable.h"
 #include "Utils.h"

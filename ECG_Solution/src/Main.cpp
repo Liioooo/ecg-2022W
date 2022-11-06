@@ -12,6 +12,7 @@
 #include "CamaraSystem.h"
 #include "InputManager.h"
 #include "Box.h"
+#include "Cylinder.h"
 #include <sstream>
 
 
@@ -23,6 +24,8 @@
 // Global variables
 /* --------------------------------------------- */
 
+bool wireFrameMode = false;
+bool backFaceCulling = true;
 
 /* --------------------------------------------- */
 // Main
@@ -86,11 +89,28 @@ int main(int argc, char **argv) {
 #endif
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
     glClearColor(1, 1, 1, 1);
 
     InputManager* inputManager = new InputManager(window);
     inputManager->addKeyListener(GLFW_KEY_ESCAPE, [](GLFWwindow * window) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+    });
+    inputManager->addKeyListener(GLFW_KEY_F1, [](GLFWwindow * window) {
+        wireFrameMode = !wireFrameMode;
+        if (wireFrameMode) {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        } else {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+    });
+    inputManager->addKeyListener(GLFW_KEY_F2, [](GLFWwindow * window) {
+        backFaceCulling = !backFaceCulling;
+        if (backFaceCulling) {
+            glEnable(GL_CULL_FACE);
+        } else {
+            glDisable(GL_CULL_FACE);
+        }
     });
 
     Shader *shader = new Shader("assets/shader/shader.vert", "assets/shader/shader.frag");
@@ -112,11 +132,14 @@ int main(int argc, char **argv) {
 
     Box* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 1);
     box->init();
+    box->setPosition(3, 3, 3);
     box->updateModelMatrix();
     camaraSystem->addDrawable(box);
 
-//    glEnable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    Cylinder* cylinder = new Cylinder(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 100);
+    cylinder->init();
+    cylinder->updateModelMatrix();
+    camaraSystem->addDrawable(cylinder);
 
     if (!initFramework()) {
         EXIT_WITH_ERROR("Failed to init framework");
