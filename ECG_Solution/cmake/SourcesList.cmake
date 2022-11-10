@@ -11,6 +11,7 @@ set(Header_Files
     "src/Teapot.h"
     "src/Box.h"
     "src/Cylinder.h"
+    "src/Sphere.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files

@@ -13,6 +13,7 @@
 #include "InputManager.h"
 #include "Box.h"
 #include "Cylinder.h"
+#include "Sphere.h"
 #include <sstream>
 
 
@@ -118,17 +119,17 @@ int main(int argc, char **argv) {
 
     CamaraSystem* camaraSystem = new CamaraSystem(shader, inputManager, reader);
 
-    Teapot* teapot1 = new Teapot(shader, glm::vec3(0.2f, 0.6f, 0.4f));
-    teapot1->addRotation(180, 0, 1, 0);
-    teapot1->setPosition(-1.5f, 1, 0);
-    teapot1->updateModelMatrix();
-    camaraSystem->addDrawable(teapot1);
-
-    Teapot* teapot2 = new Teapot(shader, glm::vec3(0.7f, 0.1f, 0.2f));
-    teapot2->setPosition(1.5f, -1, 0);
-    teapot2->setScale(1, 2, 1);
-    teapot2->updateModelMatrix();
-    camaraSystem->addDrawable(teapot2);
+//    Teapot* teapot1 = new Teapot(shader, glm::vec3(0.2f, 0.6f, 0.4f));
+//    teapot1->addRotation(180, 0, 1, 0);
+//    teapot1->setPosition(-1.5f, 1, 0);
+//    teapot1->updateModelMatrix();
+//    camaraSystem->addDrawable(teapot1);
+//
+//    Teapot* teapot2 = new Teapot(shader, glm::vec3(0.7f, 0.1f, 0.2f));
+//    teapot2->setPosition(1.5f, -1, 0);
+//    teapot2->setScale(1, 2, 1);
+//    teapot2->updateModelMatrix();
+//    camaraSystem->addDrawable(teapot2);
 
     Box* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 1);
     box->init();
@@ -136,10 +137,16 @@ int main(int argc, char **argv) {
     box->updateModelMatrix();
     camaraSystem->addDrawable(box);
 
-    Cylinder* cylinder = new Cylinder(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 100);
+    Cylinder* cylinder = new Cylinder(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 10);
     cylinder->init();
     cylinder->updateModelMatrix();
     camaraSystem->addDrawable(cylinder);
+
+    Sphere* sphere = new Sphere(shader, glm::vec3(0.4f, 0.3f, 0.7f), 1, 18, 8);
+    sphere->init();
+    sphere->setScale(1, 1.7f, 1);
+    sphere->updateModelMatrix();
+    camaraSystem->addDrawable(sphere);
 
     if (!initFramework()) {
         EXIT_WITH_ERROR("Failed to init framework");

@@ -9,6 +9,7 @@
 class DrawableMesh : public Drawable {
 public:
     DrawableMesh(Shader* shader) : Drawable(shader) {}
+    ~DrawableMesh();
 
     /**
      * Calls generateMesh() and must be called before drawing the Drawable

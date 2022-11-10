@@ -4,6 +4,10 @@
 
 #include "DrawableMesh.h"
 
+DrawableMesh::~DrawableMesh() {
+    glDeleteVertexArrays(1, &vao);
+}
+
 void DrawableMesh::init() {
     GLuint vbo, ebo;
 

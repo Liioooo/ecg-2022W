@@ -34,42 +34,42 @@ protected:
             vertices.emplace_back(vertex.x, -height / 2, vertex.z);
         }
 
-        for (int i = 0; i < segments; i++) {
+        for (int i = 2; i < 2 + segments; i++) {
             indices.push_back(0);
-            indices.push_back(i + 2);
-            if (i == segments - 1) {
+            indices.push_back(i);
+            if (i == 1 + segments) {
                 indices.push_back(2);
             } else {
-                indices.push_back(i + 3);
+                indices.push_back(i + 1);
             }
         }
 
-        for (int i = segments; i < 2 * segments; i++) {
+        for (int i = 2 + segments; i < 2 + 2 * segments; i++) {
             indices.push_back(1);
-            if (i == 2 * segments - 1) {
-                indices.push_back(segments + 2);
+            if (i == 1 + 2 * segments) {
+                indices.push_back(2 + segments);
             } else {
-                indices.push_back(i + 3);
+                indices.push_back(i + 1);
             }
-            indices.push_back(i + 2);
+            indices.push_back(i);
         }
 
-        for (int i = 0; i < segments; i++) {
-            indices.push_back(i + 2);
-            indices.push_back(segments + i + 2);
-            if (i == segments - 1) {
+        for (int i = 2; i < 2 + segments; i++) {
+            indices.push_back(i);
+            indices.push_back(segments + i);
+            if (i == 1 + segments) {
                 indices.push_back(2);
             } else {
-                indices.push_back(i + 3);
+                indices.push_back(i + 1);
             }
 
-            indices.push_back(segments + i + 2);
-            if (i == segments - 1) {
-                indices.push_back(segments + 2);
+            indices.push_back(segments + i);
+            if (i == 1 + segments) {
+                indices.push_back(2 + segments);
                 indices.push_back(2);
             } else {
-                indices.push_back(segments + i + 3);
-                indices.push_back(i + 3);
+                indices.push_back(segments + i + 1);
+                indices.push_back(i + 1);
             }
         }
 
