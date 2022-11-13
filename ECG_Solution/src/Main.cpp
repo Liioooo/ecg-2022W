@@ -21,12 +21,16 @@
 // Prototypes
 /* --------------------------------------------- */
 
+void updateAndPrintFrameTime();
+
 /* --------------------------------------------- */
 // Global variables
 /* --------------------------------------------- */
 
 bool wireFrameMode = false;
 bool backFaceCulling = true;
+double lastFrameTime = 0;
+double lastPrintTime = 0;
 
 /* --------------------------------------------- */
 // Main
@@ -44,20 +48,20 @@ int main(int argc, char **argv) {
     int width = reader.GetInteger("window", "width", 800);
     int height = reader.GetInteger("window", "height", 800);
     int refreshRate = reader.GetInteger("window", "refresh_rate", 60);
+    bool fullscreen = reader.GetBoolean("window", "fullscreen", false);
     std::string window_title = reader.Get("window", "title", "ECG 2022");
 
     /* --------------------------------------------- */
     // Init framework
     /* --------------------------------------------- */
 
-    GLFWwindow *window;
+    glfwSetErrorCallback([](int error, const char* description) { std::cout << "GLFW error " << error << ": " << description << std::endl; });
 
     if (!glfwInit()) {
         EXIT_WITH_ERROR("Failed to init GLFW");
     }
 
 #if _DEBUG
-    // Create a debug OpenGL context or tell your OpenGL library (GLFW, SDL) to do so.
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 #endif
 
@@ -67,7 +71,13 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_REFRESH_RATE, refreshRate);
 
-    window = glfwCreateWindow(width, height, window_title.c_str(), NULL, NULL);
+    GLFWmonitor* monitor = nullptr;
+
+    if (fullscreen) {
+        monitor = glfwGetPrimaryMonitor();
+    }
+
+    GLFWwindow *window = glfwCreateWindow(width, height, window_title.c_str(), monitor, nullptr);
     if (!window) {
         EXIT_WITH_ERROR("Failed to create window");
     }
@@ -82,12 +92,13 @@ int main(int argc, char **argv) {
     }
 
 #if _DEBUG
-    // Register your callback function.
-    glDebugMessageCallback(DebugCallback, NULL);
-    // Enable synchronous callback. This ensures that your callback function is called
-    // right after an error has occurred.
+    glDebugMessageCallback(DebugCallback, nullptr);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 #endif
+
+    if (!initFramework()) {
+        EXIT_WITH_ERROR("Failed to init framework");
+    }
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -119,17 +130,17 @@ int main(int argc, char **argv) {
 
     CamaraSystem* camaraSystem = new CamaraSystem(shader, inputManager, reader);
 
-//    Teapot* teapot1 = new Teapot(shader, glm::vec3(0.2f, 0.6f, 0.4f));
-//    teapot1->addRotation(180, 0, 1, 0);
-//    teapot1->setPosition(-1.5f, 1, 0);
-//    teapot1->updateModelMatrix();
-//    camaraSystem->addDrawable(teapot1);
-//
-//    Teapot* teapot2 = new Teapot(shader, glm::vec3(0.7f, 0.1f, 0.2f));
-//    teapot2->setPosition(1.5f, -1, 0);
-//    teapot2->setScale(1, 2, 1);
-//    teapot2->updateModelMatrix();
-//    camaraSystem->addDrawable(teapot2);
+    Teapot* teapot1 = new Teapot(shader, glm::vec3(0.2f, 0.6f, 0.4f));
+    teapot1->addRotation(180, 0, 1, 0);
+    teapot1->setPosition(-1.5f, 1, 0);
+    teapot1->updateModelMatrix();
+    camaraSystem->addDrawable(teapot1);
+
+    Teapot* teapot2 = new Teapot(shader, glm::vec3(0.7f, 0.1f, 0.2f));
+    teapot2->setPosition(1.5f, -1, 0);
+    teapot2->setScale(1, 2, 1);
+    teapot2->updateModelMatrix();
+    camaraSystem->addDrawable(teapot2);
 
     Box* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 1);
     box->init();
@@ -137,20 +148,16 @@ int main(int argc, char **argv) {
     box->updateModelMatrix();
     camaraSystem->addDrawable(box);
 
-    Cylinder* cylinder = new Cylinder(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 10);
-    cylinder->init();
-    cylinder->updateModelMatrix();
-    camaraSystem->addDrawable(cylinder);
+//    Cylinder* cylinder = new Cylinder(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1, 1, 10);
+//    cylinder->init();
+//    cylinder->updateModelMatrix();
+//    camaraSystem->addDrawable(cylinder);
 
     Sphere* sphere = new Sphere(shader, glm::vec3(0.4f, 0.3f, 0.7f), 1, 18, 8);
     sphere->init();
     sphere->setScale(1, 1.7f, 1);
     sphere->updateModelMatrix();
     camaraSystem->addDrawable(sphere);
-
-    if (!initFramework()) {
-        EXIT_WITH_ERROR("Failed to init framework");
-    }
 
     /* --------------------------------------------- */
     // Initialize scene and render loop
@@ -163,6 +170,8 @@ int main(int argc, char **argv) {
 
             camaraSystem->updateCamara();
             camaraSystem->drawObjects();
+
+            updateAndPrintFrameTime();
 
             glfwSwapBuffers(window);
 
@@ -186,4 +195,15 @@ int main(int argc, char **argv) {
     glfwDestroyWindow(window);
     glfwTerminate();
     return EXIT_SUCCESS;
+}
+
+void updateAndPrintFrameTime() {
+    double currentTime = glfwGetTime();
+    double frameTime = currentTime - lastFrameTime;
+    lastFrameTime = currentTime;
+
+    if (currentTime - lastPrintTime > 1) {
+        lastPrintTime = currentTime;
+        printf("FT: %f, (%f FPS)\n", frameTime, 1 / frameTime);
+    }
 }
