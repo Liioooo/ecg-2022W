@@ -35,7 +35,7 @@ void InputManager::updateMousePos() {
     currMousePos = glm::vec2(mouseX, mouseY);
 }
 
-glm::vec2 InputManager::getMousePosDelta() {
+glm::vec2 InputManager::getMousePosDelta() const {
     return prevMousePos - currMousePos;
 }
 

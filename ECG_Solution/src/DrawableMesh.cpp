@@ -33,7 +33,7 @@ void DrawableMesh::init() {
     glDeleteBuffers(1, &ebo);
 }
 
-void DrawableMesh::drawMesh() {
+void DrawableMesh::drawMesh() const {
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

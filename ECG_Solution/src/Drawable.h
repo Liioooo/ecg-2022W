@@ -16,14 +16,14 @@ struct Rotation {
 
 class Drawable {
 public:
-    Drawable(Shader* shader) : shader(shader) {}
+    explicit Drawable(Shader* shader) : shader(shader) {}
 
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
     void addRotation(float angle, float x, float y, float z);
     void clearRotations();
     void updateModelMatrix();
-    virtual void draw();
+    virtual void draw() const;
 
 protected:
     Shader* shader;
@@ -34,5 +34,5 @@ private:
     std::vector<Rotation*> rotations;
     glm::mat4 modelMatrix = glm::mat4(1.0f);
 
-    void applyModelMatrix();
+    void applyModelMatrix() const;
 };

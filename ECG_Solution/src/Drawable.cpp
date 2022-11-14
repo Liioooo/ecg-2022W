@@ -34,11 +34,11 @@ void Drawable::updateModelMatrix() {
     modelMatrix = glm::scale(modelMatrix, scale);
 }
 
-void Drawable::draw() {
+void Drawable::draw() const {
     shader->use();
     applyModelMatrix();
 }
 
-void Drawable::applyModelMatrix() {
+void Drawable::applyModelMatrix() const {
     shader->setMat4("model", modelMatrix);
 }

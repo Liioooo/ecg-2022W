@@ -66,7 +66,7 @@ void CamaraSystem::drawObjects() {
     }
 }
 
-void CamaraSystem::calculateViewMatrix() {
+void CamaraSystem::calculateViewMatrix() const {
     glm::vec3 camaraX = glm::normalize(glm::cross(worldUp, camaraDirection));
     glm::vec3 camaraY = glm::cross(camaraDirection, camaraX);
 

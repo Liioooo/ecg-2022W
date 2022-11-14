@@ -21,7 +21,7 @@ public:
     void addKeyListener(int key, std::function<void(GLFWwindow* window)> listener);
     void addScrollListener(std::function<void(GLFWwindow* window,  double xOffset, double yOffset)> listener);
     void updateMousePos();
-    glm::vec2 getMousePosDelta();
+    glm::vec2 getMousePosDelta() const;
 
     const bool& leftMouseButtonPressed = _leftMouseButtonPressed;
     const bool& rightMouseButtonPressed = _rightMouseButtonPressed;

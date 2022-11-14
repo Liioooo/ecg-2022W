@@ -11,7 +11,7 @@ public:
     Cylinder(Shader* shader, glm::vec3 color, float radius, float height, int segments) :
     DrawableMesh(shader), color(color), radius(radius), height(height), segments(segments) {}
 
-    void draw() override {
+    void draw() const override {
         DrawableMesh::draw();
         shader->setVec3("color", color);
         drawMesh();

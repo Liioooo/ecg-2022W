@@ -62,7 +62,7 @@ Shader::~Shader() {
     glDeleteProgram(programId);
 }
 
-void Shader::use() {
+void Shader::use() const {
     glUseProgram(programId);
 }
 
@@ -86,7 +86,7 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat) {
     glUniformMatrix4fv(glGetUniformLocation(programId, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::checkErrors(unsigned int id, const std::string &type) {
+void Shader::checkErrors(unsigned int id, const std::string &type) const {
     int isCompiled;
     int maxLength;
 

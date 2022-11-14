@@ -10,7 +10,7 @@ public:
     Box(Shader* shader, glm::vec3 color, float width, float height, float depth) :
     DrawableMesh(shader), color(color), width(width), height(height), depth(depth) {}
 
-    void draw() override {
+    void draw() const override {
         Drawable::draw();
         shader->setVec3("color", color);
         drawMesh();

@@ -22,7 +22,7 @@ private:
     Shader* shader;
     InputManager* inputManager;
     glm::vec3 camaraCenter = glm::vec3(0, 0, 0);
-    glm::vec3 camaraDirection;
+    glm::vec3 camaraDirection{};
     glm::vec3 worldUp = glm::normalize(glm::vec3(0, 1, 0));
     float orbitRadius = 6;
     std::vector<Drawable*> drawables;
@@ -31,5 +31,5 @@ private:
     float sensitivity = 0.008f;
     bool camaraDirty = true;
 
-    void calculateViewMatrix();
+    void calculateViewMatrix() const;
 };

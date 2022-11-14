@@ -8,7 +8,7 @@
 
 class DrawableMesh : public Drawable {
 public:
-    DrawableMesh(Shader* shader) : Drawable(shader) {}
+    explicit DrawableMesh(Shader* shader) : Drawable(shader) {}
     ~DrawableMesh();
 
     /**
@@ -20,9 +20,9 @@ protected:
     std::vector<glm::vec3> vertices;
     std::vector<unsigned int> indices;
 
-    void drawMesh();
+    void drawMesh() const;
     virtual void generateMesh() = 0;
 
 private:
-    GLuint vao;
+    GLuint vao{};
 };

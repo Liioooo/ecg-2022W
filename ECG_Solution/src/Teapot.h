@@ -10,7 +10,7 @@ class Teapot : public Drawable {
 public:
     Teapot(Shader* shader, glm::vec3 color) : Drawable(shader), color(color) {}
 
-    void draw() override {
+    void draw() const override  {
         Drawable::draw();
         shader->setVec3("color", color);
         drawTeapot();

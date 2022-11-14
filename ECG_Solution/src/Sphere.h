@@ -11,7 +11,7 @@ public:
     Sphere(Shader* shader, glm::vec3 color, float radius, int n, int m) :
     DrawableMesh(shader), color(color), radius(radius), n(n), m(m) {}
 
-    void draw() override {
+    void draw() const override {
         DrawableMesh::draw();
         shader->setVec3("color", color);
         drawMesh();

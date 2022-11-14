@@ -12,7 +12,7 @@ public:
     Shader(const std::string& vertexPath, const std::string& fragmentPath);
     ~Shader();
 
-    void use();
+    void use() const;
     void setBool(const std::string& name, bool value);
     void setInt(const std::string& name, int value);
     void setFloat(const std::string& name, float value);
@@ -22,5 +22,5 @@ public:
 private:
     unsigned int programId;
 
-    void checkErrors(unsigned int id, const std::string& type);
+    void checkErrors(unsigned int id, const std::string& type) const;
 };
