@@ -24,7 +24,7 @@ protected:
 
         float pi2 = 2 * glm::pi<float>();
         float theta = 0;
-        while (theta < pi2) {
+        for (int i = 0; i < segments; ++i) {
             vertices.emplace_back(radius * sin(theta), height / 2, radius * cos(theta));
             theta += pi2 / (float)segments;
         }
