@@ -21,11 +21,9 @@ protected:
         vertices.emplace_back(0.0f, height / 2, 0);
         vertices.emplace_back(0.0f, -height / 2, 0);
 
-        float pi2 = 2 * glm::pi<float>();
-        float theta = 0;
         for (int i = 0; i < segments; ++i) {
+            float theta = 2 * glm::pi<float>() * i / segments;
             vertices.emplace_back(radius * sin(theta), height / 2, radius * cos(theta));
-            theta += pi2 / (float)segments;
         }
 
         for (int i = 2; i < segments + 2; i++) {

@@ -12,6 +12,7 @@ set(Header_Files
     "src/Box.h"
     "src/Cylinder.h"
     "src/Sphere.h"
+    "src/Torus.h"
     "src/Window.h"
 )
 source_group("Header Files" FILES ${Header_Files})
