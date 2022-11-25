@@ -1,7 +1,8 @@
 //
 // Created by preis on 06/11/2022.
 //
-#pragma once
+#ifndef ECG_SOLUTION_BOX_H
+#define ECG_SOLUTION_BOX_H
 
 #include "DrawableMesh.h"
 
@@ -11,7 +12,6 @@ public:
     DrawableMesh(shader), color(color), width(width), height(height), depth(depth) {}
 
     void draw() const override {
-        Drawable::draw();
         shader->setVec3("color", color);
         drawMesh();
     }
@@ -88,3 +88,5 @@ private:
     float height;
     float depth;
 };
+
+#endif // ECG_SOLUTION_BOX_H

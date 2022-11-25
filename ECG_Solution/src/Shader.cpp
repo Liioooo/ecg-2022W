@@ -27,7 +27,7 @@ Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath) {
             fragCode += line + "\n";
         }
     } catch (const std::ifstream::failure& e) {
-        EXIT_WITH_ERROR(e.what());
+        EXIT_WITH_ERROR(e.what())
     }
 
     vertIn.close();
@@ -38,12 +38,12 @@ Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath) {
     unsigned int vert, frag;
 
     vert = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vert, 1, &vertCString, NULL);
+    glShaderSource(vert, 1, &vertCString, nullptr);
     glCompileShader(vert);
     checkErrors(vert, "SHADER");
 
     frag = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(frag, 1, &fragCString, NULL);
+    glShaderSource(frag, 1, &fragCString, nullptr);
     glCompileShader(frag);
     checkErrors(frag, "SHADER");
 
@@ -66,15 +66,15 @@ void Shader::use() const {
     glUseProgram(programId);
 }
 
-void Shader::setBool(const string &name, bool value) {
+void Shader::setBool(const std::string &name, bool value) {
     glUniform1i(glGetUniformLocation(programId, name.c_str()), value);
 }
 
-void Shader::setInt(const string &name, int value) {
+void Shader::setInt(const std::string &name, int value) {
     glUniform1i(glGetUniformLocation(programId, name.c_str()), value);
 }
 
-void Shader::setFloat(const string &name, float value) {
+void Shader::setFloat(const std::string &name, float value) {
     glUniform1f(glGetUniformLocation(programId, name.c_str()), value);
 }
 

@@ -1,10 +1,10 @@
 //
 // Created by preis on 06/11/2022.
 //
-#pragma once
+#ifndef ECG_SOLUTION_DRAWABLEMESH_H
+#define ECG_SOLUTION_DRAWABLEMESH_H
 
 #include "Drawable.h"
-#include "GL/glew.h"
 
 class DrawableMesh : public Drawable {
 public:
@@ -26,3 +26,5 @@ protected:
 private:
     GLuint vao{};
 };
+
+#endif // ECG_SOLUTION_DRAWABLEMESH_H

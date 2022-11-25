@@ -1,8 +1,8 @@
 //
 // Created by preis on 09/10/2022.
 //
-#pragma once
-
+#ifndef ECG_SOLUTION_CAMARASYSTEM_H
+#define ECG_SOLUTION_CAMARASYSTEM_H
 
 #include <vector>
 #include "Drawable.h"
@@ -12,17 +12,18 @@
 
 class CamaraSystem {
 public:
-    CamaraSystem(Shader* shader, InputManager* inputManager, INIReader iniReader);
+    CamaraSystem(InputManager* inputManager, INIReader* iniReader);
 
     void addDrawable(Drawable* drawable);
     void updateCamara();
     void drawObjects();
 
 private:
-    Shader* shader;
     InputManager* inputManager;
     glm::vec3 camaraCenter = glm::vec3(0, 0, 0);
     glm::vec3 camaraDirection{};
+    glm::mat4 projection;
+    glm::mat4 viewProjection = glm::mat4(1.0f);
     glm::vec3 worldUp = glm::normalize(glm::vec3(0, 1, 0));
     float orbitRadius = 6;
     std::vector<Drawable*> drawables;
@@ -31,5 +32,7 @@ private:
     float sensitivity = 0.008f;
     bool camaraDirty = true;
 
-    void calculateViewMatrix() const;
+    void calculateViewProjectionMatrix();
 };
+
+#endif // ECG_SOLUTION_CAMARASYSTEM_H

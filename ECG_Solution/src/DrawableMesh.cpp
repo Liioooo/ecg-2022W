@@ -2,6 +2,7 @@
 // Created by preis on 06/11/2022.
 //
 
+#include "GL/glew.h"
 #include "DrawableMesh.h"
 
 DrawableMesh::~DrawableMesh() {

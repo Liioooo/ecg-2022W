@@ -1,7 +1,8 @@
 //
 // Created by preis on 05/10/2022.
 //
-#pragma once
+#ifndef ECG_SOLUTION_SHADER_H
+#define ECG_SOLUTION_SHADER_H
 
 
 #include <string>
@@ -24,3 +25,5 @@ private:
 
     void checkErrors(unsigned int id, const std::string& type) const;
 };
+
+#endif // ECG_SOLUTION_SHADER_H

@@ -12,7 +12,6 @@ public:
     DrawableMesh(shader), color(color), radius(radius), n(n), m(m) {}
 
     void draw() const override {
-        DrawableMesh::draw();
         shader->setVec3("color", color);
         drawMesh();
     }

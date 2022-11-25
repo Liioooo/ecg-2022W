@@ -12,6 +12,7 @@ set(Header_Files
     "src/Box.h"
     "src/Cylinder.h"
     "src/Sphere.h"
+    "src/Window.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
@@ -21,6 +22,7 @@ set(Source_Files
     "src/DrawableMesh.cpp"
     "src/CamaraSystem.cpp"
     "src/InputManager.cpp"
+    "src/Window.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 set(All_Sources ${Header_Files} ${Source_Files})

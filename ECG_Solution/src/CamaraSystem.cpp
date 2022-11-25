@@ -6,17 +6,16 @@
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
-CamaraSystem::CamaraSystem(Shader *shader, InputManager* inputManager, INIReader iniReader) : shader(shader), inputManager(inputManager) {
-    float fovy = glm::radians(iniReader.GetReal("camera", "fov", 60.0f));
-    float aspect = iniReader.GetReal("window", "width", 800) / iniReader.GetReal("window", "height", 800);
-    float zNear = iniReader.GetReal("camera", "near", 0.1f);
-    float zFar = iniReader.GetReal("camera", "far", 10.0f);
-    glm::mat4 projection = glm::perspective(fovy, aspect, zNear, zFar);
-    shader->setMat4("projection", projection);
+CamaraSystem::CamaraSystem(InputManager* inputManager, INIReader* iniReader) : inputManager(inputManager) {
+    float fovy = glm::radians(iniReader->GetReal("camera", "fov", 60.0f));
+    float aspect = iniReader->GetReal("window", "width", 800) / iniReader->GetReal("window", "height", 800);
+    float zNear = iniReader->GetReal("camera", "near", 0.1f);
+    float zFar = iniReader->GetReal("camera", "far", 10.0f);
+    projection = glm::perspective(fovy, aspect, zNear, zFar);
 
     camaraDirection = glm::normalize(glm::vec3(cos(pitch) * cos(yaw),sin(pitch),cos(pitch) * sin(yaw)));
 
-    inputManager->addScrollListener([this](GLFWwindow* window, double xOffset, double yOffset) {
+    inputManager->addScrollListener([this](double xOffset, double yOffset) {
         orbitRadius -= yOffset;
         if (orbitRadius < 2) orbitRadius = 2;
         camaraDirty = true;
@@ -57,16 +56,20 @@ void CamaraSystem::updateCamara() {
 
 void CamaraSystem::drawObjects() {
     if (camaraDirty) {
-        calculateViewMatrix();
+        calculateViewProjectionMatrix();
         camaraDirty = false;
     }
 
     for (const auto &drawable: drawables) {
+        drawable->getShader()->use();
+        drawable->getShader()->setMat4("vp", viewProjection);
+        drawable->updateModelMatrix();
+        drawable->applyModelMatrix();
         drawable->draw();
     }
 }
 
-void CamaraSystem::calculateViewMatrix() const {
+void CamaraSystem::calculateViewProjectionMatrix() {
     glm::vec3 camaraX = glm::normalize(glm::cross(worldUp, camaraDirection));
     glm::vec3 camaraY = glm::cross(camaraDirection, camaraX);
 
@@ -86,5 +89,5 @@ void CamaraSystem::calculateViewMatrix() const {
     rotation[1][2] = camaraDirection.y;
     rotation[2][2] = camaraDirection.z;
 
-    shader->setMat4("view", rotation * translation);
+    viewProjection = projection * rotation * translation;
 }
