@@ -10,6 +10,7 @@
 #include "Box.h"
 #include "Sphere.h"
 #include "Cylinder.h"
+#include "Torus.h"
 
 
 /* --------------------------------------------- */
@@ -62,7 +63,7 @@ int main(int argc, char **argv) {
     box->addRotation(45, 0, 1, 0);
     window->getCamaraSystem()->addDrawable(box);
 
-    auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.6f, 0.4f), 0.6f, 2, 18);
+    auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.8f, 0.4f), 0.6f, 2, 18);
     cylinder->setPosition(2.2f, 0, 0);
     cylinder->init();
     window->getCamaraSystem()->addDrawable(cylinder);
@@ -72,6 +73,11 @@ int main(int argc, char **argv) {
     sphere->setScale(1, 1.7f, 1);
     sphere->setPosition(-2.2f, 0, 0);
     window->getCamaraSystem()->addDrawable(sphere);
+
+    auto* torus = new Torus(shader, glm::vec3(1.0f, 0.3f, 0.0f), 4.5f, 0.5f, 32, 18);
+    torus->init();
+    torus->setScale(1, 0.6f, 1);
+    window->getCamaraSystem()->addDrawable(torus);
 
     /* --------------------------------------------- */
     // Initialize scene and render loop
