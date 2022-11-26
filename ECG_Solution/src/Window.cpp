@@ -115,3 +115,14 @@ void Window::onNextFrame() {
 
     glfwSwapBuffers(window);
 }
+
+void Window::printPerformanceStats() {
+    double currentTime = glfwGetTime();
+    double frameTime = currentTime - perfLastFrameTime;
+    perfLastFrameTime = currentTime;
+
+    if (currentTime - perfLastPrintTime > 1) {
+        perfLastPrintTime = currentTime;
+        printf("FT: %f, (%f FPS)\n", frameTime, 1 / frameTime);
+    }
+}

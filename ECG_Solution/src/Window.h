@@ -23,6 +23,7 @@ public:
     void setShouldClose();
     bool shouldClose();
     void onNextFrame();
+    void printPerformanceStats();
 
     const bool& isWireframe = _isWireframe;
     const bool& isBackfaceCulling = _isBackfaceCulling;
@@ -38,6 +39,8 @@ private:
     bool _isBackfaceCulling;
     int _width;
     int _height;
+    double perfLastFrameTime = 0;
+    double perfLastPrintTime = 0;
 };
 
 #endif // ECG_SOLUTION_WINDOW_H

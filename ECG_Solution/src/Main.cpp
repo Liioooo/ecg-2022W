@@ -17,14 +17,9 @@
 // Prototypes
 /* --------------------------------------------- */
 
-void updateAndPrintFrameTime();
-
 /* --------------------------------------------- */
 // Global variables
 /* --------------------------------------------- */
-
-double lastFrameTime = 0;
-double lastPrintTime = 0;
 
 /* --------------------------------------------- */
 // Main
@@ -85,8 +80,7 @@ int main(int argc, char **argv) {
     {
         while (!window->shouldClose()) {
             window->onNextFrame();
-
-            updateAndPrintFrameTime();
+            window->printPerformanceStats();
 
             if (argc > 1 && std::string(argv[1]) == "--run_headless") {
                 saveScreenshot("screenshot", window->width, window->height);
@@ -106,15 +100,4 @@ int main(int argc, char **argv) {
     /* --------------------------------------------- */
     delete window;
     return EXIT_SUCCESS;
-}
-
-void updateAndPrintFrameTime() {
-    double currentTime = glfwGetTime();
-    double frameTime = currentTime - lastFrameTime;
-    lastFrameTime = currentTime;
-
-    if (currentTime - lastPrintTime > 1) {
-        lastPrintTime = currentTime;
-        printf("FT: %f, (%f FPS)\n", frameTime, 1 / frameTime);
-    }
 }
