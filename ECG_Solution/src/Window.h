@@ -31,7 +31,7 @@ public:
 
 private:
     GLFWwindow* window;
-    GLFWmonitor* monitor;
+    GLFWmonitor* monitor = nullptr;
     InputManager* inputManager;
     CamaraSystem* camaraSystem;
     bool _isWireframe;
