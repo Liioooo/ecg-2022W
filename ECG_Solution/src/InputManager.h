@@ -28,7 +28,7 @@ public:
 
 private:
     GLFWwindow* glfwWindow;
-    std::vector<KeyListener*> keyListeners;
+    std::vector<KeyListener> keyListeners;
     std::vector<std::function<void(double xOffset, double yOffset)>> scrollListeners;
     bool _leftMouseButtonPressed = false;
     bool _rightMouseButtonPressed = false;

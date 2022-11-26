@@ -19,9 +19,9 @@ InputManager::InputManager(GLFWwindow* glfwWindow) : glfwWindow(glfwWindow) {
 }
 
 void InputManager::addKeyListener(int key, const std::function<void()> &listenerFunc) {
-    auto* listener = new KeyListener();
-    listener->key = key;
-    listener->listenerFunc = listenerFunc;
+    auto listener = KeyListener();
+    listener.key = key;
+    listener.listenerFunc = listenerFunc;
     keyListeners.push_back(listener);
 }
 
@@ -43,8 +43,8 @@ glm::vec2 InputManager::getMousePosDelta() const {
 void InputManager::key_callback(int key, int action) {
     if (action == GLFW_PRESS) {
         for (const auto &listener: keyListeners) {
-            if (listener->key == key) {
-                listener->listenerFunc();
+            if (listener.key == key) {
+                listener.listenerFunc();
             }
         }
     }

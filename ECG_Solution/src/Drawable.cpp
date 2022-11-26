@@ -17,9 +17,9 @@ void Drawable::setScale(float x, float y, float z) {
 }
 
 void Drawable::addRotation(float angle, float x, float y, float z) {
-    Rotation* rot = new Rotation();
-    rot->angle = glm::radians(angle);
-    rot->axis = glm::vec3(x, y, z);
+    Rotation rot = Rotation();
+    rot.angle = glm::radians(angle);
+    rot.axis = glm::vec3(x, y, z);
     rotations.push_back(rot);
     modelMatrixDirty = true;
 }
@@ -34,7 +34,7 @@ void Drawable::updateModelMatrix() {
         modelMatrix = glm::mat4(1.0f);
         modelMatrix = glm::translate(modelMatrix, position);
         for (const auto &rot: rotations) {
-            modelMatrix = glm::rotate(modelMatrix, rot->angle, rot->axis);
+            modelMatrix = glm::rotate(modelMatrix, rot.angle, rot.axis);
         }
         modelMatrix = glm::scale(modelMatrix, scale);
         modelMatrixDirty = false;
