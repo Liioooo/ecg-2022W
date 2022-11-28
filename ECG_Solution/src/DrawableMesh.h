@@ -15,12 +15,13 @@ public:
      * Calls generateMesh() and must be called before drawing the Drawable
      */
     void init();
+    void draw() override;
 
 protected:
     std::vector<glm::vec3> vertices;
     std::vector<unsigned int> indices;
 
-    void drawMesh() const;
+    virtual void preDraw() = 0;
     virtual void generateMesh() = 0;
 
 private:

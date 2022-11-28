@@ -23,10 +23,8 @@ public:
     void setScale(float x, float y, float z);
     void addRotation(float angle, float x, float y, float z);
     void clearRotations();
-    void updateModelMatrix();
-    void applyModelMatrix() const;
     Shader* getShader() const;
-    virtual void draw() const = 0;
+    virtual void draw();
 
 protected:
     Shader* shader;
@@ -37,6 +35,9 @@ private:
     std::vector<Rotation> rotations;
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     bool modelMatrixDirty = true;
+
+    void updateModelMatrix();
+    void applyModelMatrix() const;
 };
 
 #endif // ECG_SOLUTION_DRAWABLE_H

@@ -11,12 +11,11 @@ public:
     Torus(Shader* shader, glm::vec3 color, float centerRadius, float tubeRadius, int ts, int cts) :
     DrawableMesh(shader), color(color), centerRadius(centerRadius), tubeRadius(tubeRadius), ts(ts), cts(cts) {}
 
-    void draw() const override {
+protected:
+    void preDraw() override {
         shader->setVec3("color", color);
-        drawMesh();
     }
 
-protected:
     void generateMesh() override {
         for (int i = 0; i < ts; i++) {
             float phi = 2 * glm::pi<float>() * i / ts;

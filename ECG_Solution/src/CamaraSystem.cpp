@@ -2,6 +2,7 @@
 // Created by preis on 09/10/2022.
 //
 
+#include <unordered_set>
 #include "CamaraSystem.h"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
@@ -55,16 +56,20 @@ void CamaraSystem::updateCamara() {
 }
 
 void CamaraSystem::drawObjects() {
+    std::unordered_set<Shader*> setUpShaders;
+
     if (camaraDirty) {
         calculateViewProjectionMatrix();
         camaraDirty = false;
     }
 
     for (const auto &drawable: drawables) {
-        drawable->getShader()->use();
-        drawable->getShader()->setMat4("vp", viewProjection);
-        drawable->updateModelMatrix();
-        drawable->applyModelMatrix();
+        auto* shader = drawable->getShader();
+        shader->use();
+        if (setUpShaders.count(shader) == 0) {
+            setUpShaders.insert(shader);
+            shader->setMat4("vp", viewProjection);
+        }
         drawable->draw();
     }
 }

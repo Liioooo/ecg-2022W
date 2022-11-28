@@ -48,3 +48,8 @@ void Drawable::applyModelMatrix() const {
 Shader* Drawable::getShader() const {
     return shader;
 }
+
+void Drawable::draw() {
+    updateModelMatrix();
+    applyModelMatrix();
+}

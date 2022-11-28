@@ -34,7 +34,9 @@ void DrawableMesh::init() {
     glDeleteBuffers(1, &ebo);
 }
 
-void DrawableMesh::drawMesh() const {
+void DrawableMesh::draw() {
+    Drawable::draw();
+    preDraw();
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

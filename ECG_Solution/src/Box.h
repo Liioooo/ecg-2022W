@@ -11,12 +11,11 @@ public:
     Box(Shader* shader, glm::vec3 color, float width, float height, float depth) :
     DrawableMesh(shader), color(color), width(width), height(height), depth(depth) {}
 
-    void draw() const override {
+protected:
+    void preDraw() override {
         shader->setVec3("color", color);
-        drawMesh();
     }
 
-protected:
     void generateMesh() override {
         vertices.emplace_back(-0.5f * width, 0.5f * height, 0.5f * depth); // left_top_front
         vertices.emplace_back(-0.5f * width,  -0.5f * height, 0.5f * depth ); // left_bottom_front
