@@ -21,8 +21,7 @@ public:
 
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
-    void addRotation(float angle, float x, float y, float z);
-    void clearRotations();
+    void setRotation(float x, float y, float z);
     Shader* getShader() const;
     virtual void draw();
 
@@ -32,7 +31,7 @@ protected:
 private:
     glm::vec3 position = glm::vec3(0, 0, 0);
     glm::vec3 scale = glm::vec3(1, 1, 1);
-    std::vector<Rotation> rotations;
+    glm::vec3 rotation = glm::vec3(0, 0, 0);
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     bool modelMatrixDirty = true;
 

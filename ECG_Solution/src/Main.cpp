@@ -55,12 +55,12 @@ int main(int argc, char **argv) {
 
     auto* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1.3f, 2.0f, 1.3f);
     box->init();
-    box->addRotation(45, 0, 1, 0);
+    box->setRotation(0, glm::radians(45.0), 0);
     window->getCamaraSystem()->addDrawable(box);
 
     auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.8f, 0.4f), 0.6f, 2, 18);
-    cylinder->setPosition(2.2f, 0, 0);
     cylinder->init();
+    cylinder->setPosition(2.2f, 0, 0);
     window->getCamaraSystem()->addDrawable(cylinder);
 
     auto* sphere = new Sphere(shader, glm::vec3(0.4f, 0.3f, 0.7f), 0.6, 18, 8);
