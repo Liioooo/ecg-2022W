@@ -16,6 +16,7 @@ set(Header_Files
     "src/Window.h"
     "src/Renderer.h"
     "src/OrbitCamara.h"
+    "src/Light.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files

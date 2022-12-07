@@ -13,8 +13,8 @@ void Renderer::addDrawable(Drawable *drawable) {
     drawables.push_back(drawable);
 }
 
-void Renderer::addLight() {
-
+void Renderer::addLight(Light* light) {
+    lights.push_back(light);
 }
 
 void Renderer::renderScene() {

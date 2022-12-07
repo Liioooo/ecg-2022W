@@ -8,6 +8,7 @@
 
 #include "Drawable.h"
 #include "CamaraSystem.h"
+#include "Light.h"
 
 class Renderer {
 public:
@@ -15,12 +16,13 @@ public:
 
     void setCamaraSystem(CamaraSystem* camaraSystem);
     void addDrawable(Drawable* drawable);
-    void addLight();
+    void addLight(Light* light);
     void renderScene();
 
 private:
     CamaraSystem* camaraSystem;
     std::vector<Drawable*> drawables;
+    std::vector<Light*> lights;
 };
 
 
