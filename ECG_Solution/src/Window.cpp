@@ -4,7 +4,7 @@
 
 #include "Window.h"
 
-Window::Window(INIReader* reader) {
+Window::Window(INIReader* reader) : iniReader(reader) {
     _width = reader->GetInteger("window", "width", 800);
     _height = reader->GetInteger("window", "height", 800);
     int refreshRate = reader->GetInteger("window", "refresh_rate", 60);
@@ -56,12 +56,12 @@ Window::Window(INIReader* reader) {
     glClearColor(1, 1, 1, 1);
 
     inputManager = new InputManager(window);
-    camaraSystem = new CamaraSystem(inputManager, reader);
+    renderer = new Renderer();
 }
 
 Window::~Window() {
     delete inputManager;
-    delete camaraSystem;
+    delete renderer;
     glfwDestroyWindow(window);
     glfwTerminate();
 }
@@ -92,8 +92,8 @@ InputManager* Window::getInputManager() const {
     return inputManager;
 }
 
-CamaraSystem *Window::getCamaraSystem() const {
-    return camaraSystem;
+Renderer* Window::getRenderer() const {
+    return renderer;
 }
 
 void Window::setShouldClose() {
@@ -110,8 +110,7 @@ void Window::onNextFrame() {
 
     inputManager->updateMousePos();
 
-    camaraSystem->updateCamara();
-    camaraSystem->drawObjects();
+    renderer->renderScene();
 
     glfwSwapBuffers(window);
 }

@@ -6,11 +6,11 @@
 
 #include "Utils.h"
 #include "Window.h"
-#include "Teapot.h"
 #include "Box.h"
 #include "Sphere.h"
 #include "Cylinder.h"
 #include "Torus.h"
+#include "OrbitCamara.h"
 
 
 /* --------------------------------------------- */
@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
     /* --------------------------------------------- */
 
     auto* window = new Window(reader);
+    window->setCamaraSystem<OrbitCamara>();
 
     if (!initFramework()) {
         EXIT_WITH_ERROR("Failed to init framework")
@@ -56,23 +57,23 @@ int main(int argc, char **argv) {
     auto* box = new Box(shader, glm::vec3(0.7f, 0.1f, 0.2f), 1.3f, 2.0f, 1.3f);
     box->init();
     box->setRotation(0, glm::radians(45.0), 0);
-    window->getCamaraSystem()->addDrawable(box);
+    window->getRenderer()->addDrawable(box);
 
     auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.8f, 0.4f), 0.6f, 2, 18);
     cylinder->init();
     cylinder->setPosition(2.2f, 0, 0);
-    window->getCamaraSystem()->addDrawable(cylinder);
+    window->getRenderer()->addDrawable(cylinder);
 
     auto* sphere = new Sphere(shader, glm::vec3(0.4f, 0.3f, 0.7f), 0.6, 18, 8);
     sphere->init();
     sphere->setScale(1, 1.7f, 1);
     sphere->setPosition(-2.2f, 0, 0);
-    window->getCamaraSystem()->addDrawable(sphere);
+    window->getRenderer()->addDrawable(sphere);
 
     auto* torus = new Torus(shader, glm::vec3(1.0f, 0.3f, 0.0f), 4.5f, 0.5f, 32, 18);
     torus->init();
     torus->setScale(1, 0.6f, 1);
-    window->getCamaraSystem()->addDrawable(torus);
+    window->getRenderer()->addDrawable(torus);
 
     /* --------------------------------------------- */
     // Initialize scene and render loop

@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "CamaraSystem.h"
 #include "Utils.h"
+#include "Renderer.h"
 
 class Window {
 public:
@@ -19,11 +20,16 @@ public:
     void setWireframeMode(const bool &enabled);
     void setBackfaceCulling(const bool &enabled);
     InputManager* getInputManager() const;
-    CamaraSystem* getCamaraSystem() const;
+    Renderer* getRenderer() const;
     void setShouldClose();
     bool shouldClose();
     void onNextFrame();
     void printPerformanceStats();
+
+    template<class System>
+    void setCamaraSystem() {
+        renderer->setCamaraSystem(new System(inputManager, iniReader));
+    }
 
     const bool& isWireframe = _isWireframe;
     const bool& isBackfaceCulling = _isBackfaceCulling;
@@ -31,10 +37,11 @@ public:
     const int& height = _height;
 
 private:
+    INIReader* iniReader;
     GLFWwindow* window;
     GLFWmonitor* monitor = nullptr;
     InputManager* inputManager;
-    CamaraSystem* camaraSystem;
+    Renderer* renderer;
     bool _isWireframe;
     bool _isBackfaceCulling;
     int _width;

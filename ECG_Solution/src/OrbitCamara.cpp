@@ -1,13 +1,12 @@
 //
-// Created by preis on 09/10/2022.
+// Created by preis on 07/12/2022.
 //
 
-#include <unordered_set>
-#include "CamaraSystem.h"
+#include "OrbitCamara.h"
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
 
-CamaraSystem::CamaraSystem(InputManager* inputManager, INIReader* iniReader) : inputManager(inputManager) {
+OrbitCamara::OrbitCamara(InputManager *inputManager, INIReader *iniReader) : CamaraSystem(inputManager, iniReader) {
     float fovy = glm::radians(iniReader->GetReal("camera", "fov", 60.0f));
     float aspect = iniReader->GetReal("window", "width", 800) / iniReader->GetReal("window", "height", 800);
     float zNear = iniReader->GetReal("camera", "near", 0.1f);
@@ -23,11 +22,7 @@ CamaraSystem::CamaraSystem(InputManager* inputManager, INIReader* iniReader) : i
     });
 }
 
-void CamaraSystem::addDrawable(Drawable *drawable) {
-    drawables.push_back(drawable);
-}
-
-void CamaraSystem::updateCamara() {
+void OrbitCamara::update() {
     if (inputManager->leftMouseButtonPressed || inputManager->rightMouseButtonPressed) {
         glm::vec2 mousePosDelta = inputManager->getMousePosDelta();
 
@@ -53,28 +48,18 @@ void CamaraSystem::updateCamara() {
 
         camaraDirty = true;
     }
-}
-
-void CamaraSystem::drawObjects() {
-    std::unordered_set<Shader*> setUpShaders;
 
     if (camaraDirty) {
         calculateViewProjectionMatrix();
         camaraDirty = false;
     }
-
-    for (const auto &drawable: drawables) {
-        auto* shader = drawable->getShader();
-        shader->use();
-        if (setUpShaders.count(shader) == 0) {
-            setUpShaders.insert(shader);
-            shader->setMat4("vp", viewProjection);
-        }
-        drawable->draw();
-    }
 }
 
-void CamaraSystem::calculateViewProjectionMatrix() {
+glm::mat4 OrbitCamara::getVpMatrix() const {
+    return viewProjection;
+}
+
+void OrbitCamara::calculateViewProjectionMatrix() {
     glm::vec3 camaraX = glm::normalize(glm::cross(worldUp, camaraDirection));
     glm::vec3 camaraY = glm::cross(camaraDirection, camaraX);
 

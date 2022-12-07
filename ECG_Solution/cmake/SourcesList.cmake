@@ -14,6 +14,8 @@ set(Header_Files
     "src/Sphere.h"
     "src/Torus.h"
     "src/Window.h"
+    "src/Renderer.h"
+    "src/OrbitCamara.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
@@ -21,9 +23,10 @@ set(Source_Files
     "src/Shader.cpp"
     "src/Drawable.cpp"
     "src/DrawableMesh.cpp"
-    "src/CamaraSystem.cpp"
     "src/InputManager.cpp"
     "src/Window.cpp"
+    "src/Renderer.cpp"
+    "src/OrbitCamara.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 set(All_Sources ${Header_Files} ${Source_Files})
