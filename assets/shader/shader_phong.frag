@@ -31,6 +31,7 @@ uniform int pointLightCount;
 
 // Prototypes
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
+vec3 calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir);
 
 void main()
 {
@@ -43,6 +44,9 @@ void main()
     for (int i = 0; i < dirLightCount; i++) {
         lightResult += calcDirLight(dirLights[i], norm, viewDir);
     }
+    for (int i = 0; i < pointLightCount; i++) {
+        lightResult += calcPointLight(pointLights[i], FragPos, norm, viewDir);
+    }
 
     vec3 result = baseColor * (ambient + lightResult);
     FragColor = vec4(result, 1.0f);
@@ -54,4 +58,16 @@ vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
     float spec = ks * pow(max(dot(reflectDir, viewDir), 0.0), alpha);
     float diff = kd * clamp(dot(lightDir, normal), 0, 1);
     return light.color * (spec + diff);
+}
+
+vec3 calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir) {
+    vec3 lightDir = normalize(light.position - fragPos);
+    vec3 reflectDir = reflect(lightDir, normal);
+    float spec = ks * pow(max(dot(reflectDir, viewDir), 0.0), alpha);
+    float diff = kd * clamp(dot(lightDir, normal), 0.0, 1.0);
+
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.aConstant + light.aLinear * distance + light.aQuadratic * distance * distance);
+
+    return light.color * attenuation * (spec + diff);
 }

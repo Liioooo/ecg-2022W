@@ -13,6 +13,7 @@
 #include "OrbitCamara.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "Sphere.h"
 
 
 /* --------------------------------------------- */
@@ -54,11 +55,11 @@ int main(int argc, char **argv) {
         window->setBackfaceCulling(!window->isBackfaceCulling);
     });
 
-    auto *shader = new Shader("assets/shader/shader.vert", "assets/shader/shader.frag");
+    auto *phongShader = new Shader("assets/shader/shader_phong.vert", "assets/shader/shader_phong.frag");
 
-    auto* box = new Box(shader, new Material(glm::vec3(1, 0, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.3f, 2.0f, 1.3f);
+    auto* box = new Box(phongShader, new Material(glm::vec3(1, 0, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.5f, 1.5f, 1.5f);
     box->init();
-    box->setRotation(0, glm::radians(45.0), 0);
+    box->setPosition(-1.2f, -1.5f, 0.0f);
     window->getRenderer()->addDrawable(box);
 
 //    auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.8f, 0.4f), 0.6f, 2, 18);
@@ -66,11 +67,10 @@ int main(int argc, char **argv) {
 //    cylinder->setPosition(2.2f, 0, 0);
 //    window->getRenderer()->addDrawable(cylinder);
 //
-//    auto* sphere = new Sphere(shader, glm::vec3(0.4f, 0.3f, 0.7f), 0.6, 18, 8);
-//    sphere->init();
-//    sphere->setScale(1, 1.7f, 1);
-//    sphere->setPosition(-2.2f, 0, 0);
-//    window->getRenderer()->addDrawable(sphere);
+    auto* sphereTL = new Sphere(phongShader, new Material(glm::vec3(0, 1, 0), 0.1f, 0.9f, 0.3f, 10.0f), 1, 32, 16);
+    sphereTL->init();
+    sphereTL->setPosition(-1.2f, 1.0f, 0);
+    window->getRenderer()->addDrawable(sphereTL);
 //
 //    auto* torus = new Torus(shader, glm::vec3(1.0f, 0.3f, 0.0f), 4.5f, 0.5f, 32, 18);
 //    torus->init();

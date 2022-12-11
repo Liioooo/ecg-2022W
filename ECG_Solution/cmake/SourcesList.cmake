@@ -11,7 +11,7 @@ set(Header_Files
     "src/Teapot.h"
     "src/Box.h"
 #    "src/Cylinder.h"
-#    "src/Sphere.h"
+    "src/Sphere.h"
 #    "src/Torus.h"
     "src/Window.h"
     "src/Renderer.h"

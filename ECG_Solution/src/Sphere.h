@@ -8,18 +8,14 @@
 
 class Sphere : public DrawableMesh {
 public:
-    Sphere(Shader* shader, glm::vec3 color, float radius, int n, int m) :
-    DrawableMesh(shader), color(color), radius(radius), n(n), m(m) {}
+    Sphere(Shader* shader, Material* material, float radius, int n, int m) :
+    DrawableMesh(shader, material), radius(radius), n(n), m(m) {}
 
 protected:
-    void preDraw() override {
-        shader->setVec3("color", color);
-    }
-
     void generateMesh() override {
 
-        vertices.emplace_back(0, radius, 0);
-        vertices.emplace_back(0, -radius, 0);
+        vertices.emplace_back(0, radius, 0, 0, 1, 0);
+        vertices.emplace_back(0, -radius, 0, 0, -1, 0);
 
         // latitude
         for (int i = 1; i < m; i++) {
@@ -30,7 +26,8 @@ protected:
             // longitude
             for (int j = 0; j < n; j++) {
                 float lonAngle = 2 * glm::pi<float>() * j / n; // 0 to 2pi
-                vertices.emplace_back(xz * sin(lonAngle), y, xz * cos(lonAngle));
+                glm::vec3 vertexPos(xz * sin(lonAngle), y, xz * cos(lonAngle));
+                vertices.emplace_back(vertexPos.x, vertexPos.y, vertexPos.z, vertexPos.x, vertexPos.y, vertexPos.z);
             }
         }
 
@@ -80,7 +77,6 @@ protected:
     }
 
 private:
-    glm::vec3 color;
     float radius;
     int n;
     int m;
