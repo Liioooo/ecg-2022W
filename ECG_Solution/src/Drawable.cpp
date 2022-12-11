@@ -44,4 +44,5 @@ Shader* Drawable::getShader() const {
 void Drawable::draw() {
     updateModelMatrix();
     applyModelMatrix();
+    material->setUniforms(shader);
 }

@@ -17,12 +17,16 @@ public:
     void setCamaraSystem(CamaraSystem* camaraSystem);
     void addDrawable(Drawable* drawable);
     void addLight(Light* light);
+    void setAmbientLightIntensity(float ia);
     void renderScene();
 
 private:
     CamaraSystem* camaraSystem;
     std::vector<Drawable*> drawables;
     std::vector<Light*> lights;
+    float ambientLightIntensity = 1;
+
+    void setupLightsForShader(Shader* shader);
 };
 
 

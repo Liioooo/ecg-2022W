@@ -7,17 +7,13 @@
 #include "Shader.h"
 #include "glm/detail/type_vec3.hpp"
 #include "glm/detail/type_mat4x4.hpp"
+#include "Material.h"
 #include <GLFW/glfw3.h>
 #include <vector>
 
-struct Rotation {
-    float angle;
-    glm::vec3 axis;
-};
-
 class Drawable {
 public:
-    explicit Drawable(Shader* shader) : shader(shader) {}
+    explicit Drawable(Shader* shader, Material* material) : shader(shader), material(material) {}
 
     void setPosition(float x, float y, float z);
     void setScale(float x, float y, float z);
@@ -29,6 +25,7 @@ protected:
     Shader* shader;
 
 private:
+    Material* material;
     glm::vec3 position = glm::vec3(0, 0, 0);
     glm::vec3 scale = glm::vec3(1, 1, 1);
     glm::vec3 rotation = glm::vec3(0, 0, 0);

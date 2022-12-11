@@ -14,6 +14,7 @@ OrbitCamara::OrbitCamara(InputManager *inputManager, INIReader *iniReader) : Cam
     projection = glm::perspective(fovy, aspect, zNear, zFar);
 
     camaraDirection = glm::normalize(glm::vec3(cos(pitch) * cos(yaw),sin(pitch),cos(pitch) * sin(yaw)));
+    camaraEyePos = camaraCenter - camaraDirection * orbitRadius;
 
     inputManager->addScrollListener([this](double xOffset, double yOffset) {
         orbitRadius -= yOffset;
@@ -50,9 +51,14 @@ void OrbitCamara::update() {
     }
 
     if (camaraDirty) {
+        camaraEyePos = camaraCenter - camaraDirection * orbitRadius;
         calculateViewProjectionMatrix();
         camaraDirty = false;
     }
+}
+
+glm::vec3 OrbitCamara::getCamaraEyePos() const {
+    return camaraEyePos;
 }
 
 glm::mat4 OrbitCamara::getVpMatrix() const {
@@ -63,10 +69,8 @@ void OrbitCamara::calculateViewProjectionMatrix() {
     glm::vec3 camaraX = glm::normalize(glm::cross(worldUp, camaraDirection));
     glm::vec3 camaraY = glm::cross(camaraDirection, camaraX);
 
-    glm::vec3 camaraPos = camaraCenter - camaraDirection * orbitRadius;
-
     glm::mat4 translation = glm::mat4(1.0f);
-    translation = glm::translate(translation, camaraPos);
+    translation = glm::translate(translation, camaraEyePos);
 
     glm::mat4 rotation = glm::mat4(1.0f);
     rotation[0][0] = camaraX.x;

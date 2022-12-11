@@ -6,9 +6,17 @@
 
 #include "Drawable.h"
 
+struct Vertex {
+    float position[3];
+    float normal[3];
+
+    Vertex(float pX, float pY, float pZ, float nX, float nY, float nZ)
+    : position{pX, pY, pZ}, normal{nX, nY, nZ} {};
+};
+
 class DrawableMesh : public Drawable {
 public:
-    explicit DrawableMesh(Shader* shader) : Drawable(shader) {}
+    explicit DrawableMesh(Shader* shader, Material* material) : Drawable(shader, material) {}
     ~DrawableMesh();
 
     /**
@@ -18,10 +26,10 @@ public:
     void draw() override;
 
 protected:
-    std::vector<glm::vec3> vertices;
+    std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
-    virtual void preDraw() = 0;
+    virtual void preDraw() {};
     virtual void generateMesh() = 0;
 
 private:

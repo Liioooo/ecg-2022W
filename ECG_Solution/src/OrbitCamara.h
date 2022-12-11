@@ -14,10 +14,12 @@ public:
     OrbitCamara(InputManager* inputManager, INIReader* iniReader);
 
     void update() override;
+    glm::vec3 getCamaraEyePos() const override;
     glm::mat4 getVpMatrix() const override;
 
 private:
     glm::vec3 camaraCenter = glm::vec3(0, 0, 0);
+    glm::vec3 camaraEyePos = glm::vec3{};
     glm::vec3 camaraDirection{};
     glm::mat4 projection;
     glm::mat4 viewProjection = glm::mat4(1.0f);

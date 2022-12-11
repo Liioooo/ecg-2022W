@@ -10,13 +10,16 @@ set(Header_Files
     "src/InputManager.h"
     "src/Teapot.h"
     "src/Box.h"
-    "src/Cylinder.h"
-    "src/Sphere.h"
-    "src/Torus.h"
+#    "src/Cylinder.h"
+#    "src/Sphere.h"
+#    "src/Torus.h"
     "src/Window.h"
     "src/Renderer.h"
     "src/OrbitCamara.h"
     "src/Light.h"
+    "src/Material.h"
+    "src/PointLight.h"
+    "src/DirectionalLight.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
@@ -28,6 +31,7 @@ set(Source_Files
     "src/Window.cpp"
     "src/Renderer.cpp"
     "src/OrbitCamara.cpp"
+    "src/Material.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 set(All_Sources ${Header_Files} ${Source_Files})

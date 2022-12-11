@@ -14,6 +14,7 @@ public:
     CamaraSystem(InputManager* inputManager, INIReader* iniReader) : inputManager(inputManager), iniReader(iniReader) {};
 
     virtual void update() = 0;
+    virtual glm::vec3 getCamaraEyePos() const = 0;
     virtual glm::mat4 getVpMatrix() const = 0;
 
 protected:
