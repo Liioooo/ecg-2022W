@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
     });
 
     auto *phongShader = new Shader("assets/shader/shader_phong.vert", "assets/shader/shader_phong.frag");
+    auto *gouraudShader = new Shader("assets/shader/shader_gouraud.vert", "assets/shader/shader_gouraud.frag");
 
     auto* box = new Box(phongShader, new Material(glm::vec3(1, 0, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.5f, 1.5f, 1.5f);
     box->init();
@@ -71,6 +72,11 @@ int main(int argc, char **argv) {
     sphereTL->init();
     sphereTL->setPosition(-1.2f, 1.0f, 0);
     window->getRenderer()->addDrawable(sphereTL);
+
+    auto* sphereTR = new Sphere(gouraudShader, new Material(glm::vec3(1, 0, 0), 0.1f, 0.9f, 0.3f, 10.0f), 1, 32, 16);
+    sphereTR->init();
+    sphereTR->setPosition(1.2f, 1.0f, 0);
+    window->getRenderer()->addDrawable(sphereTR);
 //
 //    auto* torus = new Torus(shader, glm::vec3(1.0f, 0.3f, 0.0f), 4.5f, 0.5f, 32, 18);
 //    torus->init();
