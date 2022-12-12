@@ -14,6 +14,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Sphere.h"
+#include "Cylinder.h"
 
 
 /* --------------------------------------------- */
@@ -63,11 +64,11 @@ int main(int argc, char **argv) {
     box->setPosition(-1.2f, -1.5f, 0.0f);
     window->getRenderer()->addDrawable(box);
 
-//    auto* cylinder = new Cylinder(shader, glm::vec3(0.2f, 0.8f, 0.4f), 0.6f, 2, 18);
-//    cylinder->init();
-//    cylinder->setPosition(2.2f, 0, 0);
-//    window->getRenderer()->addDrawable(cylinder);
-//
+    auto* cylinder = new Cylinder(phongShader, new Material(glm::vec3(0, 1, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.0f, 1.5f, 16);
+    cylinder->init();
+    cylinder->setPosition(1.2f, -1.5f, 0);
+    window->getRenderer()->addDrawable(cylinder);
+
     auto* sphereTL = new Sphere(phongShader, new Material(glm::vec3(0, 1, 0), 0.1f, 0.9f, 0.3f, 10.0f), 1, 32, 16);
     sphereTL->init();
     sphereTL->setPosition(-1.2f, 1.0f, 0);

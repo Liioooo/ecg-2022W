@@ -10,7 +10,7 @@ set(Header_Files
     "src/InputManager.h"
     "src/Teapot.h"
     "src/Box.h"
-#    "src/Cylinder.h"
+    "src/Cylinder.h"
     "src/Sphere.h"
 #    "src/Torus.h"
     "src/Window.h"
