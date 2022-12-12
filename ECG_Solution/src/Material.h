@@ -13,7 +13,7 @@ class Material {
 public:
     Material(glm::vec3 baseColor, float ka, float kd, float ks, float alpha) : baseColor(baseColor), ka(ka), kd(kd), ks(ks), alpha(alpha) {};
 
-    void const setUniforms(Shader* shader);
+    void setUniforms(Shader* shader) const;
 
 private:
     glm::vec3 baseColor;

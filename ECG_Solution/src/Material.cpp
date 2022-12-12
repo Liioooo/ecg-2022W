@@ -4,7 +4,7 @@
 
 #include "Material.h"
 
-void const Material::setUniforms(Shader *shader) {
+void Material::setUniforms(Shader *shader) const {
     shader->setVec3("baseColor", baseColor);
     shader->setFloat("ka", ka);
     shader->setFloat("kd", kd);
