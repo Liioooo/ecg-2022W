@@ -20,6 +20,7 @@ set(Header_Files
     "src/Material.h"
     "src/PointLight.h"
     "src/DirectionalLight.h"
+    "src/SpotLight.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
