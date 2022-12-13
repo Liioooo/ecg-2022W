@@ -3,11 +3,17 @@
 //
 
 #include <unordered_set>
-#include <typeindex>
 #include "Renderer.h"
 
 void Renderer::setCamaraSystem(CamaraSystem *camaraSystem) {
     this->camaraSystem = camaraSystem;
+}
+
+void Renderer::setDebugNormals(const bool &enabled) {
+    _debugNormals = enabled;
+    if (normalDebugShader == nullptr) {
+        normalDebugShader = new Shader("assets/shader/shader_normal.vert", "assets/shader/shader_normal.frag", "assets/shader/shader_normal.geom");
+    }
 }
 
 void Renderer::addDrawable(Drawable *drawable) {
@@ -32,12 +38,21 @@ void Renderer::renderScene() {
         shader->use();
         if (setUpShaders.count(shader) == 0) {
             setUpShaders.insert(shader);
-            shader->setMat4("vp", camaraSystem->getVpMatrix());
+            shader->setMat4("view", camaraSystem->getViewMatrix());
+            shader->setMat4("projection", camaraSystem->getProjectionMatrix());
             shader->setVec3("eyePos", camaraSystem->getCamaraEyePos());
             shader->setFloat("ia", ambientLightIntensity);
             setupLightsForShader(shader);
         }
         drawable->draw();
+    }
+    if (_debugNormals) {
+        normalDebugShader->use();
+        normalDebugShader->setMat4("view", camaraSystem->getViewMatrix());
+        normalDebugShader->setMat4("projection", camaraSystem->getProjectionMatrix());
+        for (const auto &drawable: drawables) {
+            drawable->drawDebug(normalDebugShader);
+        }
     }
 }
 

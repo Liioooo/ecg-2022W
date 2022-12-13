@@ -20,6 +20,7 @@ public:
     void setRotation(float x, float y, float z);
     Shader* getShader() const;
     virtual void draw();
+    virtual void drawDebug(Shader* shader);
 
 protected:
     Shader* shader;
@@ -33,7 +34,6 @@ private:
     bool modelMatrixDirty = true;
 
     void updateModelMatrix();
-    void applyModelMatrix() const;
 };
 
 #endif // ECG_SOLUTION_DRAWABLE_H

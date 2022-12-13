@@ -24,6 +24,7 @@ public:
      */
     void init();
     void draw() override;
+    void drawDebug(Shader* shader) override;
 
 protected:
     std::vector<Vertex> vertices;

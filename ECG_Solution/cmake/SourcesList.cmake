@@ -12,7 +12,7 @@ set(Header_Files
     "src/Box.h"
     "src/Cylinder.h"
     "src/Sphere.h"
-#    "src/Torus.h"
+    "src/Torus.h"
     "src/Window.h"
     "src/Renderer.h"
     "src/OrbitCamara.h"

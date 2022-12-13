@@ -15,14 +15,15 @@ public:
 
     void update() override;
     glm::vec3 getCamaraEyePos() const override;
-    glm::mat4 getVpMatrix() const override;
+    glm::mat4 getViewMatrix() const override;
+    glm::mat4 getProjectionMatrix() const override;
 
 private:
     glm::vec3 camaraCenter = glm::vec3(0, 0, 0);
     glm::vec3 camaraEyePos = glm::vec3{};
     glm::vec3 camaraDirection{};
     glm::mat4 projection;
-    glm::mat4 viewProjection = glm::mat4(1.0f);
+    glm::mat4 view = glm::mat4(1.0f);
     glm::vec3 worldUp = glm::normalize(glm::vec3(0, 1, 0));
     float orbitRadius = 6;
     float pitch = glm::radians(0.0f);
@@ -30,7 +31,7 @@ private:
     float sensitivity = 0.008f;
     bool camaraDirty = true;
 
-    void calculateViewProjectionMatrix();
+    void calculateViewMatrix();
 };
 
 

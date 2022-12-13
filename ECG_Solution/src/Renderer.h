@@ -15,16 +15,21 @@ public:
     Renderer() {};
 
     void setCamaraSystem(CamaraSystem* camaraSystem);
+    void setDebugNormals(const bool &enabled);
     void addDrawable(Drawable* drawable);
     void addLight(Light* light);
     void setAmbientLightIntensity(float ia);
     void renderScene();
+
+    const bool& isDebugNormals = _debugNormals;
 
 private:
     CamaraSystem* camaraSystem;
     std::vector<Drawable*> drawables;
     std::vector<Light*> lights;
     float ambientLightIntensity = 1;
+    bool _debugNormals = false;
+    Shader* normalDebugShader = nullptr;
 
     void setupLightsForShader(Shader* shader);
 };

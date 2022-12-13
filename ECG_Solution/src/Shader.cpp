@@ -58,6 +58,73 @@ Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath) {
     glDeleteShader(frag);
 }
 
+Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath, const std::string& geometryPath) {
+    std::string vertCode;
+    std::string fragCode;
+    std::string geomCode;
+
+    std::ifstream vertIn ;
+    std::ifstream fragIn;
+    std::ifstream geomIn;
+    vertIn.exceptions(std::ifstream::badbit);
+    fragIn.exceptions(std::ifstream::badbit);
+    geomIn.exceptions(std::ifstream::badbit);
+
+    try {
+        vertIn.open(vertexPath);
+        fragIn.open(fragmentPath);
+        geomIn.open(geometryPath);
+
+        std::string line;
+        while (std::getline(vertIn, line)) {
+            vertCode += line + "\n";
+        }
+        while (std::getline(fragIn, line)) {
+            fragCode += line + "\n";
+        }
+        while (std::getline(geomIn, line)) {
+            geomCode += line + "\n";
+        }
+    } catch (const std::ifstream::failure& e) {
+        EXIT_WITH_ERROR(e.what())
+    }
+
+    vertIn.close();
+    fragIn.close();
+    geomIn.close();
+    const char* vertCString = vertCode.c_str();
+    const char* fragCString = fragCode.c_str();
+    const char* geomCString = geomCode.c_str();
+
+    unsigned int vert, frag, geom;
+
+    vert = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vert, 1, &vertCString, nullptr);
+    glCompileShader(vert);
+    checkErrors(vert, "VERTEX");
+
+    frag = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(frag, 1, &fragCString, nullptr);
+    glCompileShader(frag);
+    checkErrors(frag, "FRAGMENT");
+
+    geom = glCreateShader(GL_GEOMETRY_SHADER);
+    glShaderSource(geom, 1, &geomCString, nullptr);
+    glCompileShader(geom);
+    checkErrors(geom, "GEOMETRY");
+
+    programId = glCreateProgram();
+    glAttachShader(programId, vert);
+    glAttachShader(programId, frag);
+    glAttachShader(programId, geom);
+    glLinkProgram(programId);
+    checkErrors(programId, "PROGRAM");
+
+    glDeleteShader(vert);
+    glDeleteShader(frag);
+    glDeleteShader(geom);
+}
+
 Shader::~Shader() {
     glDeleteProgram(programId);
 }
@@ -90,20 +157,20 @@ void Shader::checkErrors(unsigned int id, const std::string &type) const {
     int isCompiled;
     int maxLength;
 
-    if (type == "SHADER") {
-        glGetShaderiv(id, GL_COMPILE_STATUS, &isCompiled);
-        if (!isCompiled) {
-            glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
-            char* infoLog = new char[maxLength];
-            glGetShaderInfoLog(id, maxLength, &maxLength, infoLog);
-            EXIT_WITH_ERROR(type + " ERROR: " + infoLog);
-        }
-    } else {
+    if (type == "PROGRAM") {
         glGetProgramiv(id, GL_LINK_STATUS, &isCompiled);
         if (!isCompiled) {
             glGetProgramiv(id, GL_INFO_LOG_LENGTH, &maxLength);
             char* infoLog = new char[maxLength];
             glGetProgramInfoLog(id, maxLength, &maxLength, infoLog);
+            EXIT_WITH_ERROR(type + " ERROR: " + infoLog);
+        }
+    } else {
+        glGetShaderiv(id, GL_COMPILE_STATUS, &isCompiled);
+        if (!isCompiled) {
+            glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
+            char* infoLog = new char[maxLength];
+            glGetShaderInfoLog(id, maxLength, &maxLength, infoLog);
             EXIT_WITH_ERROR(type + " ERROR: " + infoLog);
         }
     }

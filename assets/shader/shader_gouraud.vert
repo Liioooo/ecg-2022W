@@ -18,7 +18,8 @@ struct PointLight {
 };
 
 uniform mat4 model;
-uniform mat4 vp;
+uniform mat4 view;
+uniform mat4 projection;
 uniform vec3 eyePos;
 uniform float ia;
 uniform vec3 baseColor;
@@ -37,7 +38,7 @@ vec3[2] calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir
 
 void main()
 {
-    gl_Position = vp * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    gl_Position = projection * view * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);
 
     vec3 fragPos = vec3(model * vec4(aPos, 1.0));
 

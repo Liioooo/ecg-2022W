@@ -52,7 +52,7 @@ void OrbitCamara::update() {
 
     if (camaraDirty) {
         camaraEyePos = camaraCenter - camaraDirection * orbitRadius;
-        calculateViewProjectionMatrix();
+        calculateViewMatrix();
         camaraDirty = false;
     }
 }
@@ -61,11 +61,15 @@ glm::vec3 OrbitCamara::getCamaraEyePos() const {
     return camaraEyePos;
 }
 
-glm::mat4 OrbitCamara::getVpMatrix() const {
-    return viewProjection;
+glm::mat4 OrbitCamara::getViewMatrix() const {
+    return view;
 }
 
-void OrbitCamara::calculateViewProjectionMatrix() {
+glm::mat4 OrbitCamara::getProjectionMatrix() const {
+    return projection;
+}
+
+void OrbitCamara::calculateViewMatrix() {
     glm::vec3 camaraX = glm::normalize(glm::cross(worldUp, camaraDirection));
     glm::vec3 camaraY = glm::cross(camaraDirection, camaraX);
 
@@ -83,5 +87,5 @@ void OrbitCamara::calculateViewProjectionMatrix() {
     rotation[1][2] = camaraDirection.y;
     rotation[2][2] = camaraDirection.z;
 
-    viewProjection = projection * rotation * translation;
+    view = rotation * translation;
 }

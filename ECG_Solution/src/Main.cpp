@@ -15,6 +15,7 @@
 #include "PointLight.h"
 #include "Sphere.h"
 #include "Cylinder.h"
+#include "Torus.h"
 
 
 /* --------------------------------------------- */
@@ -55,6 +56,9 @@ int main(int argc, char **argv) {
     window->getInputManager()->addKeyListener(GLFW_KEY_F2, [window]() {
         window->setBackfaceCulling(!window->isBackfaceCulling);
     });
+    window->getInputManager()->addKeyListener(GLFW_KEY_F3, [window]() {
+        window->getRenderer()->setDebugNormals(!window->getRenderer()->isDebugNormals);
+    });
 
     auto *phongShader = new Shader("assets/shader/shader_phong.vert", "assets/shader/shader_phong.frag");
     auto *gouraudShader = new Shader("assets/shader/shader_gouraud.vert", "assets/shader/shader_gouraud.frag");
@@ -78,11 +82,12 @@ int main(int argc, char **argv) {
     sphereTR->init();
     sphereTR->setPosition(1.2f, 1.0f, 0);
     window->getRenderer()->addDrawable(sphereTR);
-//
-//    auto* torus = new Torus(shader, glm::vec3(1.0f, 0.3f, 0.0f), 4.5f, 0.5f, 32, 18);
-//    torus->init();
-//    torus->setScale(1, 0.6f, 1);
-//    window->getRenderer()->addDrawable(torus);
+
+    auto* torus = new Torus(phongShader, new Material(glm::vec3(1, 1, 0), 0.1f, 0.9f, 0.3f, 10.0f), 4.5f, 0.5f, 32, 18);
+    torus->init();
+    torus->setPosition(0, 0, -1);
+    torus->setScale(1, 0.8f, 1);
+    window->getRenderer()->addDrawable(torus);
 
     window->getRenderer()->addLight(new DirectionalLight(glm::vec3(0, -1, -1), glm::vec3(0.8, 0.8, 0.8)));
     window->getRenderer()->addLight(new PointLight(glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 1, 0.4, 0.1));

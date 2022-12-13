@@ -33,16 +33,18 @@ void Drawable::updateModelMatrix() {
     }
 }
 
-void Drawable::applyModelMatrix() const {
-    shader->setMat4("model", modelMatrix);
-}
-
 Shader* Drawable::getShader() const {
     return shader;
 }
 
 void Drawable::draw() {
     updateModelMatrix();
-    applyModelMatrix();
+    shader->setMat4("model", modelMatrix);
+    material->setUniforms(shader);
+}
+
+void Drawable::drawDebug(Shader* shader) {
+    updateModelMatrix();
+    shader->setMat4("model", modelMatrix);
     material->setUniforms(shader);
 }

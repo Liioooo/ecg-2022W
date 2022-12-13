@@ -42,3 +42,10 @@ void DrawableMesh::draw() {
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
+
+void DrawableMesh::drawDebug(Shader *shader) {
+    Drawable::drawDebug(shader);
+    preDraw();
+    glBindVertexArray(vao);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+}
