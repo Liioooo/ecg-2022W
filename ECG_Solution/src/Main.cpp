@@ -83,17 +83,17 @@ int main(int argc, char **argv) {
 
     auto* torus = new Torus(phongShader, new Material(glm::vec3(0.6, 0.6, 0.8), 0.1f, 0.5f, 0.3f, 2.0f), 4.5f, 0.5f, 48, 18);
     torus->init();
-    torus->setPosition(0, 0, -3);
+    torus->setPosition(0, 0, -3.5);
     torus->setScale(1, 0.9f, 1);
     window->getRenderer()->addDrawable(torus);
 
     window->getRenderer()->addLight(new DirectionalLight(glm::vec3(0, -1, -1), glm::vec3(0.8, 0.8, 0.8)));
     window->getRenderer()->addLight(new PointLight(glm::vec3(0, 0, 0), glm::vec3(1, 1, 1), 1, 0.4, 0.1));
-    window->getRenderer()->addLight(new PointLight(glm::vec3(0, 0, -5), glm::vec3(1, 1, 1), 0.5, 0.2, 0.05));
-    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3), glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), glm::radians(55.0f), 1, 0.4, 0.1));
-    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3), glm::vec3(-1, 0, 0), glm::vec3(0, 1, 0), glm::radians(55.0f), 1, 0.4, 0.1));
-    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), glm::radians(45.0f), 1, 0.4, 0.1));
-    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3), glm::vec3(0, -1, 0), glm::vec3(1, 0, 0), glm::radians(45.0f), 1, 0.4, 0.1));
+    window->getRenderer()->addLight(new PointLight(glm::vec3(0, 0, -5), glm::vec3(1, 0.4, 0.4), 0.5, 0.2, 0.05));
+    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3.5), glm::vec3(1, 0, 0), glm::vec3(0, 1, 0), glm::radians(55.0f), 1, 0.4, 0.1));
+    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3.5), glm::vec3(-1, 0, 0), glm::vec3(0, 1, 0), glm::radians(55.0f), 1, 0.4, 0.1));
+    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3.5), glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), glm::radians(45.0f), 1, 0.4, 0.1));
+    window->getRenderer()->addLight(new SpotLight(glm::vec3(0, 0, -3.5), glm::vec3(0, -1, 0), glm::vec3(1, 0, 0), glm::radians(45.0f), 1, 0.4, 0.1));
 
     /* --------------------------------------------- */
     // Initialize scene and render loop
