@@ -9,9 +9,13 @@
 struct Vertex {
     float position[3];
     float normal[3];
+    float uv[2];
 
-    Vertex(float pX, float pY, float pZ, float nX, float nY, float nZ)
+    Vertex(const float pX, const float pY, const float pZ, const float nX, const float nY, const float nZ)
     : position{pX, pY, pZ}, normal{nX, nY, nZ} {};
+
+    Vertex(const float pX, const float pY, const float pZ, const float nX, const float nY, const float nZ, const float tU, const float tV)
+    : position{pX, pY, pZ}, normal{nX, nY, nZ}, uv{tU, tV} {};
 };
 
 class DrawableMesh : public Drawable {

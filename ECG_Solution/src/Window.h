@@ -21,8 +21,8 @@ public:
     void setBackfaceCulling(const bool &enabled);
     InputManager* getInputManager() const;
     Renderer* getRenderer() const;
-    void setShouldClose();
-    bool shouldClose();
+    void setShouldClose() const;
+    bool shouldClose() const;
     void onNextFrame();
     void printPerformanceStats();
 

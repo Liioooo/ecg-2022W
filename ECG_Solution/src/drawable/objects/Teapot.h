@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "Drawable.h"
-#include "Utils.h"
+#include "../Drawable.h"
+#include "../../Utils.h"
 
 class Teapot : public Drawable {
 public:

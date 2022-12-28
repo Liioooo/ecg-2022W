@@ -5,7 +5,7 @@
 #ifndef ECG_SOLUTION_LIGHT_H
 #define ECG_SOLUTION_LIGHT_H
 
-#include "Shader.h"
+#include "../Shader.h"
 
 class Light {
 public:

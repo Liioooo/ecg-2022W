@@ -6,14 +6,14 @@
 
 #include "Utils.h"
 #include "Window.h"
-#include "Box.h"
+#include "drawable/objects/Box.h"
 #include "OrbitCamara.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "Sphere.h"
-#include "Cylinder.h"
-#include "Torus.h"
-#include "SpotLight.h"
+#include "lights/DirectionalLight.h"
+#include "lights/PointLight.h"
+#include "drawable/objects/Sphere.h"
+#include "drawable/objects/Cylinder.h"
+#include "drawable/objects/Torus.h"
+#include "lights/SpotLight.h"
 
 
 /* --------------------------------------------- */
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     auto *phongShader = new Shader("assets/shader/shader_phong.vert", "assets/shader/shader_phong.frag");
     auto *gouraudShader = new Shader("assets/shader/shader_gouraud.vert", "assets/shader/shader_gouraud.frag");
 
-    auto* box = new Box(phongShader, new Material(glm::vec3(1, 0, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.5f, 1.5f, 1.5f);
+    auto* box = new Box(phongShader, new Material(new Texture("assets/textures/wood_texture.dds"), 0.05f, 0.8f, 0.5f, 5.0f), 1.5f, 1.5f, 1.5f);
     box->init();
     box->setPosition(-1.2f, -1.5f, 0.0f);
     window->getRenderer()->addDrawable(box);

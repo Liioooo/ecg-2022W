@@ -7,7 +7,7 @@
 
 #include "Light.h"
 #include "glm/vec3.hpp"
-#include "Shader.h"
+#include "../Shader.h"
 
 class PointLight : public Light {
 public:

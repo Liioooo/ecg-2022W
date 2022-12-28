@@ -71,7 +71,7 @@ void Window::setVsync(const bool &enabled) {
 }
 
 void Window::setWireframeMode(const bool &enabled) {
-    _isWireframe = !_isWireframe;
+    _isWireframe = enabled;
     if (_isWireframe) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
@@ -80,7 +80,7 @@ void Window::setWireframeMode(const bool &enabled) {
 }
 
 void Window::setBackfaceCulling(const bool &enabled) {
-    _isBackfaceCulling = !_isBackfaceCulling;
+    _isBackfaceCulling = enabled;
     if (_isBackfaceCulling) {
         glEnable(GL_CULL_FACE);
     } else {
@@ -96,11 +96,11 @@ Renderer* Window::getRenderer() const {
     return renderer;
 }
 
-void Window::setShouldClose() {
+void Window::setShouldClose() const {
     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-bool Window::shouldClose() {
+bool Window::shouldClose() const {
     return glfwWindowShouldClose(window);
 }
 

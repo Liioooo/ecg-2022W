@@ -24,6 +24,8 @@
 # whitelist source code
 !/ECG*/src/*.cpp
 !/ECG*/src/*.h
+!/ECG*/src/**/*.cpp
+!/ECG*/src/**/*.h
 
 !/ECG*/.idea
 !/ECG*/.idea/

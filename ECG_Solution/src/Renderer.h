@@ -6,9 +6,9 @@
 #define ECG_SOLUTION_RENDERER_H
 
 
-#include "Drawable.h"
+#include "drawable/Drawable.h"
 #include "CamaraSystem.h"
-#include "Light.h"
+#include "lights/Light.h"
 
 class Renderer {
 public:

@@ -4,11 +4,11 @@
 #ifndef ECG_SOLUTION_DRAWABLE_H
 #define ECG_SOLUTION_DRAWABLE_H
 
-#include "Shader.h"
+#include "../Shader.h"
 #include "glm/detail/type_vec3.hpp"
 #include "glm/detail/type_mat4x4.hpp"
-#include "Material.h"
-#include <GLFW/glfw3.h>
+#include "../Material.h"
+#include "GLFW/glfw3.h"
 #include <vector>
 
 class Drawable {

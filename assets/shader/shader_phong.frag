@@ -1,6 +1,7 @@
 #version 430 core
 in vec3 FragPos;
 in vec3 Normal;
+in vec2 TexCoord;
 
 out vec4 FragColor;
 
@@ -41,6 +42,9 @@ uniform int pointLightCount;
 uniform SpotLight spotLights[8];
 uniform int spotLightCount;
 
+uniform sampler2D materialTexture;
+uniform bool hasMaterialTexture;
+
 // Prototypes
 vec3[2] calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3[2] calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir);
@@ -70,7 +74,7 @@ void main()
     }
 
     float ambient = ia * ka;
-    vec3 result = baseColor * (ambient + lightResult[0]) + lightResult[1];
+    vec3 result = (hasMaterialTexture ? texture(materialTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1];
     FragColor = vec4(result, 1.0f);
 }
 

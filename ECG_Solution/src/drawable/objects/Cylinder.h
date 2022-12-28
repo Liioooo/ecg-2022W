@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "DrawableMesh.h"
+#include "../DrawableMesh.h"
 #include "glm/ext/scalar_constants.hpp"
 
 class Cylinder : public DrawableMesh {
