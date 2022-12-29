@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     box->setPosition(-1.2f, -1.5f, 0.0f);
     window->getRenderer()->addDrawable(box);
 
-    auto* cylinder = new Cylinder(phongShader, new Material(glm::vec3(0, 1, 0), 0.05f, 0.8f, 0.5f, 5.0f), 1.0f, 1.5f, 16);
+    auto* cylinder = new Cylinder(phongShader, new Material(new Texture("assets/textures/tiles_diffuse.dds"), 0.05f, 0.8f, 0.5f, 5.0f), 1.0f, 1.5f, 16);
     cylinder->init();
     cylinder->setPosition(1.2f, -1.5f, 0);
     window->getRenderer()->addDrawable(cylinder);
