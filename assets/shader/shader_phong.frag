@@ -42,8 +42,10 @@ uniform int pointLightCount;
 uniform SpotLight spotLights[8];
 uniform int spotLightCount;
 
-uniform sampler2D materialTexture;
-uniform bool hasMaterialTexture;
+uniform sampler2D diffTexture;
+uniform bool hasMatDiffTexture;
+uniform sampler2D specTexture;
+uniform bool hasMatSpecTexture;
 
 // Prototypes
 vec3[2] calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
@@ -54,6 +56,8 @@ void main()
 {
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(eyePos - FragPos);
+
+    vec3 specInt = hasMatSpecTexture ? texture(diffTexture, TexCoord).rgb : vec3(ks, ks, ks);
 
     vec3[2] lightResult = {vec3(0), vec3(0)}; // 0:diff,1:spec
 
@@ -74,14 +78,14 @@ void main()
     }
 
     float ambient = ia * ka;
-    vec3 result = (hasMaterialTexture ? texture(materialTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1];
+    vec3 result = (hasMatDiffTexture ? texture(diffTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1] * specInt;
     FragColor = vec4(result, 1.0f);
 }
 
 vec3[2] calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
     vec3 lightDir = normalize(-light.direction);
     vec3 reflectDir = reflect(lightDir, normal);
-    float spec = ks * pow(max(dot(reflectDir, viewDir), 0.0), alpha);
+    float spec = pow(max(dot(reflectDir, viewDir), 0.0), alpha);
     float diff = kd * clamp(dot(lightDir, normal), 0.0, 1.0);
 
     vec3[2] lOut = {light.color * diff, light.color * spec};
@@ -91,7 +95,7 @@ vec3[2] calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
 vec3[2] calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir) {
     vec3 lightDir = normalize(light.position - fragPos);
     vec3 reflectDir = reflect(lightDir, normal);
-    float spec = ks * pow(max(dot(reflectDir, viewDir), 0.0), alpha);
+    float spec = pow(max(dot(reflectDir, viewDir), 0.0), alpha);
     float diff = kd * clamp(dot(lightDir, normal), 0.0, 1.0);
 
     float distance = length(light.position - fragPos);
@@ -109,7 +113,7 @@ vec3[2] calcSpotLight(SpotLight light, vec3 fragPos, vec3 normal, vec3 viewDir) 
     float intensity = smoothstep(0, 0.03, max(light.cutOff - theta, 0));
 
     vec3 reflectDir = reflect(lightDir, normal);
-    float spec = ks * pow(max(dot(reflectDir, viewDir), 0.0), alpha);
+    float spec = pow(max(dot(reflectDir, viewDir), 0.0), alpha);
     float diff = kd * clamp(dot(lightDir, normal), 0.0, 1.0);
 
     float distance = length(light.position - fragPos);

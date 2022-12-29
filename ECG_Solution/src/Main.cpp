@@ -66,12 +66,12 @@ int main(int argc, char **argv) {
     box->setPosition(-1.2f, -1.5f, 0.0f);
     window->getRenderer()->addDrawable(box);
 
-    auto* cylinder = new Cylinder(phongShader, new Material(new Texture("assets/textures/tiles_diffuse.dds"), 0.05f, 0.8f, 0.5f, 5.0f), 1.0f, 1.5f, 16);
+    auto* cylinder = new Cylinder(phongShader, new Material(new Texture("assets/textures/tiles_diffuse.dds"), new Texture("assets/textures/tiles_specular.dds"), 0.05f, 0.8f, 5.0f), 1.0f, 1.5f, 16);
     cylinder->init();
     cylinder->setPosition(1.2f, -1.5f, 0);
     window->getRenderer()->addDrawable(cylinder);
 
-    auto* sphereTL = new Sphere(phongShader, new Material(new Texture("assets/textures/tiles_diffuse.dds"), 0.1f, 0.9f, 0.3f, 10.0f), 1, 32, 16);
+    auto* sphereTL = new Sphere(phongShader, new Material(new Texture("assets/textures/tiles_diffuse.dds"), new Texture("assets/textures/tiles_specular.dds"), 0.1f, 0.9f, 10.0f), 1, 32, 16);
     sphereTL->init();
     sphereTL->setPosition(-1.2f, 1.0f, 0);
     window->getRenderer()->addDrawable(sphereTL);

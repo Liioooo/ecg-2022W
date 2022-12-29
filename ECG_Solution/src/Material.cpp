@@ -5,10 +5,14 @@
 #include "Material.h"
 
 void Material::setUniforms(Shader *shader) const {
-    if (texture != nullptr) {
-        texture->bindTexture(shader, 0, "materialTexture");
+    if (diffTexture != nullptr) {
+        diffTexture->bindTexture(shader, 0, "diffTexture");
     }
-    shader->setBool("hasMaterialTexture", texture != nullptr);
+    if (specTexture != nullptr) {
+        specTexture->bindTexture(shader, 1, "specTexture");
+    }
+    shader->setBool("hasMatDiffTexture", diffTexture != nullptr);
+    shader->setBool("hasMatSpecTexture", specTexture != nullptr);
     shader->setVec3("baseColor", baseColor);
     shader->setFloat("ka", ka);
     shader->setFloat("kd", kd);
