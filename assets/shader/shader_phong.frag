@@ -47,6 +47,9 @@ uniform bool hasMatDiffTexture;
 uniform sampler2D specTexture;
 uniform bool hasMatSpecTexture;
 
+uniform samplerCube skyboxTexture;
+uniform bool hasSkyboxTexture;
+
 // Prototypes
 vec3[2] calcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3[2] calcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir);
@@ -77,8 +80,10 @@ void main()
         lightResult[1] += result[1];
     }
 
+    vec3 skyboxReflection = hasSkyboxTexture ? 1.5 * texture(skyboxTexture, reflect(viewDir, norm)).rgb : vec3(1, 1, 1);
+
     float ambient = ia * ka;
-    vec3 result = (hasMatDiffTexture ? texture(diffTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1] * specInt;
+    vec3 result = (hasMatDiffTexture ? texture(diffTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1] * specInt * skyboxReflection;
     FragColor = vec4(result, 1.0f);
 }
 

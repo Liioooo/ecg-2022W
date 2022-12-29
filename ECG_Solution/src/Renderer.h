@@ -9,6 +9,7 @@
 #include "drawable/Drawable.h"
 #include "CamaraSystem.h"
 #include "lights/Light.h"
+#include "CubeTexture.h"
 
 class Renderer {
 public:
@@ -19,6 +20,7 @@ public:
     void addDrawable(Drawable* drawable);
     void addLight(Light* light);
     void setAmbientLightIntensity(float ia);
+    void setSkyboxTexture(CubeTexture* texture);
     void renderScene();
 
     const bool& isDebugNormals = _debugNormals;
@@ -28,6 +30,7 @@ private:
     std::vector<Drawable*> drawables;
     std::vector<Light*> lights;
     float ambientLightIntensity = 1;
+    CubeTexture* skyboxTexture = nullptr;
     bool _debugNormals = false;
     Shader* normalDebugShader = nullptr;
 

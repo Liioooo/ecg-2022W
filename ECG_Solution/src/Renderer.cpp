@@ -28,6 +28,10 @@ void Renderer::setAmbientLightIntensity(float ia) {
     ambientLightIntensity = ia;
 }
 
+void Renderer::setSkyboxTexture(CubeTexture *texture) {
+    skyboxTexture = texture;
+}
+
 void Renderer::renderScene() {
     std::unordered_set<Shader*> setUpShaders;
 
@@ -43,6 +47,11 @@ void Renderer::renderScene() {
             shader->setVec3("eyePos", camaraSystem->getCamaraEyePos());
             shader->setFloat("ia", ambientLightIntensity);
             setupLightsForShader(shader);
+
+            if (skyboxTexture != nullptr) {
+                skyboxTexture->bindTexture(shader, 3, "skyboxTexture");
+            }
+            shader->setBool("hasSkyboxTexture", skyboxTexture != nullptr);
         }
         drawable->draw();
     }

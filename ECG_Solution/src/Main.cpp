@@ -58,6 +58,15 @@ int main(int argc, char **argv) {
         window->getRenderer()->setDebugNormals(!window->getRenderer()->isDebugNormals);
     });
 
+    window->getRenderer()->setSkyboxTexture(new CubeTexture({
+        "assets/textures/cubemap/posx.dds",
+        "assets/textures/cubemap/negx.dds",
+        "assets/textures/cubemap/posy.dds",
+        "assets/textures/cubemap/negy.dds",
+        "assets/textures/cubemap/posz.dds",
+        "assets/textures/cubemap/negz.dds"
+    }));
+
     auto *phongShader = new Shader("assets/shader/shader_phong.vert", "assets/shader/shader_phong.frag");
 
     auto* box = new Box(phongShader, new Material(new Texture("assets/textures/wood_texture.dds"), 0.1f, 0.7f, 0.1f, 2.0f), 1.5f, 1.5f, 1.5f);
