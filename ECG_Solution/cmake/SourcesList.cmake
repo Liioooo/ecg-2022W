@@ -23,6 +23,7 @@ set(Header_Files
     "src/lights/SpotLight.h"
     "src/Texture.h"
     "src/CubeTexture.h"
+    "src/Skybox.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 set(Source_Files
@@ -37,6 +38,7 @@ set(Source_Files
     "src/Material.cpp"
     "src/Texture.cpp"
     "src/CubeTexture.cpp"
+    "src/Skybox.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 set(All_Sources ${Header_Files} ${Source_Files})

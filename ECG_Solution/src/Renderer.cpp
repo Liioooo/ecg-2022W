@@ -30,6 +30,9 @@ void Renderer::setAmbientLightIntensity(float ia) {
 
 void Renderer::setSkyboxTexture(CubeTexture *texture) {
     skyboxTexture = texture;
+    if (skybox == nullptr) {
+        skybox = new Skybox();
+    }
 }
 
 void Renderer::renderScene() {
@@ -62,6 +65,9 @@ void Renderer::renderScene() {
         for (const auto &drawable: drawables) {
             drawable->drawDebug(normalDebugShader);
         }
+    }
+    if (skybox != nullptr) {
+        skybox->render(skyboxTexture, camaraSystem->getViewMatrix(), camaraSystem->getProjectionMatrix());
     }
 }
 

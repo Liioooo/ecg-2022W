@@ -80,7 +80,7 @@ void main()
         lightResult[1] += result[1];
     }
 
-    vec3 skyboxReflection = hasSkyboxTexture ? 1.5 * texture(skyboxTexture, reflect(viewDir, norm)).rgb : vec3(1, 1, 1);
+    vec3 skyboxReflection = hasSkyboxTexture ? texture(skyboxTexture, reflect(viewDir, norm)).rgb : vec3(1, 1, 1);
 
     float ambient = ia * ka;
     vec3 result = (hasMatDiffTexture ? texture(diffTexture, TexCoord).rgb : baseColor) * (ambient + lightResult[0]) + lightResult[1] * specInt * skyboxReflection;

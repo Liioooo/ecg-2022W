@@ -10,6 +10,7 @@
 #include "CamaraSystem.h"
 #include "lights/Light.h"
 #include "CubeTexture.h"
+#include "Skybox.h"
 
 class Renderer {
 public:
@@ -31,6 +32,7 @@ private:
     std::vector<Light*> lights;
     float ambientLightIntensity = 1;
     CubeTexture* skyboxTexture = nullptr;
+    Skybox* skybox = nullptr;
     bool _debugNormals = false;
     Shader* normalDebugShader = nullptr;
 
