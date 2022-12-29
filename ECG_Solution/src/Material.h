@@ -13,7 +13,7 @@
 class Material {
 public:
     Material(glm::vec3 baseColor, const float ka, const float kd, const float ks, const float alpha) : baseColor(baseColor), ka(ka), kd(kd), ks(ks), alpha(alpha) {};
-    Material(Texture* difTexture, const float ka, const float kd, const float ks, const float alpha) : diffTexture(difTexture), ka(ka), kd(kd), ks(ks), alpha(alpha) {};
+    Material(Texture* diffTexture, const float ka, const float kd, const float ks, const float alpha) : diffTexture(diffTexture), ka(ka), kd(kd), ks(ks), alpha(alpha) {};
     Material(Texture* diffTexture, Texture* specTexture, const float ka, const float kd, const float alpha) : diffTexture(diffTexture), specTexture(specTexture), ka(ka), kd(kd), alpha(alpha) {};
 
     void setUniforms(Shader* shader) const;
