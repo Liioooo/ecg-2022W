@@ -15,7 +15,6 @@ public:
     void setUniforms(Shader *shader, int arrayPos) const override {
         shader->setVec3("dirLights[" + std::to_string(arrayPos) + "].direction", direction);
         shader->setVec3("dirLights[" + std::to_string(arrayPos) + "].color", color);
-        shader->setFloat("dirLights[" + std::to_string(arrayPos) + "].t44", 1.0);
     }
 
     std::string getLightAmountUniformName() const override {
