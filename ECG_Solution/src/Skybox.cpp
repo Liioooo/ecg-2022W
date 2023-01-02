@@ -57,6 +57,11 @@ Skybox::Skybox() {
     skyboxShader = new Shader("assets/shader/skybox.vert", "assets/shader/skybox.frag");
 }
 
+Skybox::~Skybox() {
+    glDeleteVertexArrays(1, &vao);
+    delete skyboxShader;
+}
+
 void Skybox::render(CubeTexture *texture, const glm::mat4 &view, const glm::mat4 &projection) {
     skyboxShader->use();
     glDepthFunc(GL_LEQUAL);

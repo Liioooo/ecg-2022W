@@ -11,6 +11,7 @@
 class Skybox {
 public:
     Skybox();
+    ~Skybox();
 
     void render(CubeTexture* texture, const glm::mat4 &view, const glm::mat4 &projection);
 

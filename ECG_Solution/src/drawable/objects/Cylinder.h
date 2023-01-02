@@ -26,8 +26,8 @@ protected:
                     0,
                     1,
                     0,
-                    sin(theta) + 0.5,
-                    cos(theta) + 0.5
+                    sin(theta) / 2 + 0.5,
+                    cos(theta) / 2 + 0.5
             );
         }
 
@@ -41,8 +41,8 @@ protected:
                     0,
                     -1,
                     0,
-                    sin(theta) + 0.5,
-                    cos(theta) + 0.5
+                    sin(theta) / 2 + 0.5,
+                    cos(theta) / 2 + 0.5
             );
         }
 

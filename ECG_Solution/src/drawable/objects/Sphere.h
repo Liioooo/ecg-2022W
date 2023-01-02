@@ -35,7 +35,7 @@ protected:
                         vertexPos.y,
                         vertexPos.z,
                         atan2(vertexPos.x, vertexPos.z) / glm::two_pi<float>() + 0.5f,
-                        vertexPos.y * 0.5f + 0.5f
+                        0.5 + asin(vertexPos.y) / glm::pi<float>()
                 );
             }
         }

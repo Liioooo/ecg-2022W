@@ -17,6 +17,10 @@ Texture::Texture(const std::string &path) {
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
+Texture::~Texture() {
+    glDeleteTextures(1, &textureId);
+}
+
 void Texture::bindTexture(Shader *shader, const int &textureUnit, const std::string &uniformName) const {
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, textureId);

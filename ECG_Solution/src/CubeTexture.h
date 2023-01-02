@@ -13,6 +13,7 @@
 class CubeTexture {
 public:
     explicit CubeTexture(const std::vector<std::string>& textures);
+    ~CubeTexture();
 
     void bindTexture(Shader *shader, const int &textureUnit, const std::string &uniformName) const;
 

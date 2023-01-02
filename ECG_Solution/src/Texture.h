@@ -12,6 +12,7 @@
 class Texture {
 public:
     explicit Texture(const std::string &path);
+    ~Texture();
 
     void bindTexture(Shader *shader, const int &textureUnit, const std::string &uniformName) const;
 

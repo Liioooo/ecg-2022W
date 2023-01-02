@@ -31,6 +31,10 @@ CubeTexture::CubeTexture(const std::vector<std::string> &textures) {
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 }
 
+CubeTexture::~CubeTexture() {
+    glDeleteTextures(1, &textureId);
+}
+
 void CubeTexture::bindTexture(Shader *shader, const int &textureUnit, const string &uniformName) const {
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
