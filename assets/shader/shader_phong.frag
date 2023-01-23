@@ -60,7 +60,7 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(eyePos - FragPos);
 
-    vec3 specInt = hasMatSpecTexture ? texture(diffTexture, TexCoord).rgb : vec3(ks, ks, ks);
+    vec3 specInt = hasMatSpecTexture ? texture(specTexture, TexCoord).rgb : vec3(ks, ks, ks);
 
     vec3[2] lightResult = {vec3(0), vec3(0)}; // 0:diff,1:spec
 
